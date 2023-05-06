@@ -12,10 +12,12 @@ import (
 )
 
 const (
+	//Http methods for the http request
 	MethodPOST = "POST"
 	MethodGET  = "GET"
 )
 
+// Client is the struct holding all of the variables to be used
 type Client struct {
 	Http         *http.Client
 	AccessToken  string
@@ -25,10 +27,12 @@ type Client struct {
 	BaseUrl      string
 }
 
+// Endocode takes in a string and encoded it into a base64 string
 func Encode(text string) string {
 	return base64.StdEncoding.EncodeToString([]byte(text))
 }
 
+// New is a method that takes in several parameters in other to initiate the metamap configs
 func New(h *http.Client, clientId, clientSecret string) *Client {
 	baseUrl := "https://api.getmati.com/"
 	//setup the authrozation token
@@ -45,7 +49,7 @@ func New(h *http.Client, clientId, clientSecret string) *Client {
 	}
 }
 
-// newRequest method makes a http request to a server and decodes the server response into the response(resp) parameter passed into the newRequest method
+// newRequest method makes a http request to the metamap server and decodes the server response into the resp(esponse) parameter passed into the newRequest method
 func (c *Client) newRequest(method, reqURL string, reqBody interface{}, resp interface{}) error {
 	var body io.Reader
 
@@ -76,5 +80,6 @@ func (c *Client) newRequest(method, reqURL string, reqBody interface{}, resp int
 	if err := json.NewDecoder(res.Body).Decode(&resp); err != nil {
 		return errors.Wrap(err, "http client ::: unable to unmarshal response body")
 	}
+
 	return nil
 }
