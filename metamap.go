@@ -26,6 +26,12 @@ type Client struct {
 	ClientId     string
 	ClientSecret string
 	BaseUrl      string
+	/*
+		IsBasic is used to determine what kind of request is being being made so that the request header  can be set accordingly.
+
+		This value should be set to true only for if the request header authorization is Basic and for Bearer it should be set to false
+	*/
+	IsBasic bool
 
 	TokenValidity time.Time // metamap JWT token is only valid for 1hr and afterwards a new JWT token needs to be created intothet to access the resource
 }
@@ -41,11 +47,10 @@ func New(h *http.Client, clientId, clientSecret string) *Client {
 	//setup the authrozation token
 	token := fmt.Sprintf("%s:%s", clientId, clientSecret)
 	encodedToken := Encode(token)
-	newToken := fmt.Sprintf("Basic %s", encodedToken)
 
 	return &Client{
 		Http:         h,
-		AuthToken:    newToken,
+		AuthToken:    encodedToken,
 		ClientId:     clientId,
 		ClientSecret: clientSecret,
 		BaseUrl:      baseUrl,
@@ -77,7 +82,14 @@ func (c *Client) newRequest(method, reqURL string, reqBody interface{}, resp int
 
 	req, err := http.NewRequest(method, newURL, body)
 	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Authorization", c.AuthToken)
+	if c.IsBasic {
+		authToken := fmt.Sprintf("Basic %s", c.AuthToken)
+		req.Header.Set("Authorization", authToken)
+	} else {
+		accessToken := fmt.Sprintf("Bearer %s", c.AccessToken)
+		req.Header.Set("Authorization", accessToken)
+	}
+
 	if err != nil {
 		return errors.Wrap(err, "http client ::: unable to create request body")
 	}

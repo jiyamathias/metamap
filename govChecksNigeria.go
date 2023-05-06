@@ -1,6 +1,8 @@
 package metamap
 
 type (
+
+	//national ID
 	NigeriaNINRequest struct {
 		//VNIN is a required parameter that must be passed in
 		VNIN        string `json:"vNIN"`
@@ -27,6 +29,7 @@ type (
 		} `json:"data"`
 	}
 
+	//voters card
 	NigeriaVotingIDRequest struct {
 		DocumentNumber string `json:"documentNumber"`
 		FirstName      string `json:"firstName"`
@@ -52,6 +55,37 @@ type (
 		} `json:"data"`
 		Timestamp string `json:"timestamp"`
 	}
+
+	//drivers licence
+	NigeriaDriversLicenceRequest struct {
+		DocumentNumber string `json:"documentNumber"`
+		FirstName      string `json:"firstName"`
+		LastName       string `json:"lastName"`
+		CallbackUrl    string `json:"callbackUrl"`
+	}
+
+	NigeriaDriversLicenceResponse struct {
+		Status string      `json:"status"`
+		ID     string      `json:"id"`
+		Error  interface{} `json:"error"`
+		Data   struct {
+			LicenseNo           string `json:"license_no"`
+			FirstName           string `json:"firstName"`
+			LastName            string `json:"lastName"`
+			IssuedDate          string `json:"issuedDate"`
+			ExpirationDate      string `json:"expirationDate"`
+			StateOfIssue        string `json:"stateOfIssue"`
+			Gender              string `json:"gender"`
+			Birthdate           string `json:"birthdate"`
+			MiddleName          string `json:"middlename"`
+			GovernmentFaceMatch struct {
+				Photo   string `json:"photo"`
+				Matched bool   `json:"matched"`
+				Score   int    `json:"score"`
+			} `json:"governmentFaceMatch"`
+		} `json:"data"`
+		Timestamp string `json:"timestamp"`
+	}
 )
 
 /*
@@ -67,6 +101,7 @@ func (c *Client) NigeriaVirtualNIN(req NigeriaNINRequest) (*NigeriaNINResponse, 
 	url := "govchecks/v1/ng/vnin"
 	method := MethodPOST
 	var response NigeriaNINResponse
+	c.IsBasic = false
 	if err := c.newRequest(method, url, req, response); err != nil {
 		return &NigeriaNINResponse{}, err
 	}
@@ -80,15 +115,31 @@ NigeriaVotingID verifies Voting Identity Number.
 This method takes in the NigeriaVotingIDRequest{} struct as a parameter.
 
 NOTE: The format for the DateOfBirth is yyyy-mm-dd.
-
-It also takes in an optional parameter `metadata` which is a map[string]interface that is passed in to add custom data to the request.
 */
 func (c *Client) NigeriaVotingID(req NigeriaVotingIDRequest) (*NigeriaVotingIDResponse, error) {
 	url := "govchecks/v1/ng/vin"
 	method := MethodPOST
 	var response NigeriaVotingIDResponse
+	c.IsBasic = false
 	if err := c.newRequest(method, url, req, response); err != nil {
 		return &NigeriaVotingIDResponse{}, err
+	}
+
+	return &response, nil
+}
+
+/*
+NigeriaDriversLicence verifies drivers licence.
+
+This method takes in the NigeriaDriversLicenceRequest{} struct as a parameter.
+*/
+func (c *Client) NigeriaDriversLicence(req NigeriaDriversLicenceRequest) (*NigeriaDriversLicenceResponse, error) {
+	url := "govchecks/v1/ng/dl"
+	method := MethodPOST
+	var response NigeriaDriversLicenceResponse
+	c.IsBasic = false
+	if err := c.newRequest(method, url, req, response); err != nil {
+		return &NigeriaDriversLicenceResponse{}, err
 	}
 
 	return &response, nil

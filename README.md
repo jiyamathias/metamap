@@ -124,3 +124,45 @@ func main() {
 	fmt.Println("This is the response: ", resp)
 }
 ```
+
+- ## NigeriaDriversLicence
+NigeriaDriversLicence verifies drivers licence.
+### Use this object payload to implement the NigeriaDriversLicence() method
+```go
+type NigeriaDriversLicenceRequest struct {
+		DocumentNumber string `json:"documentNumber"`
+		FirstName      string `json:"firstName"`
+		LastName       string `json:"lastName"`
+		CallbackUrl    string `json:"callbackUrl"`
+}
+
+```
+```go
+package main
+
+import (
+	"fmt"
+	metamap "github.com/iqquee/metamap-go"
+)
+
+func main() {
+	clientId := "your metamap client id"
+	clientSecret := "your metamap client secrete"
+	httpClient := http.Client{}
+	client := metamap.New(&httpClient, clientId, clientSecret)
+
+	req := metamap.NigeriaDriversLicenceRequest{
+		DocumentNumber: "your drivers licence",
+		FirstName:      "John",
+		LastName:       "Doe",
+		CallbackUrl:    "your callback url",
+	}
+	resp, err := client.NigeriaDriversLicence(req)
+	if err != nil {
+		fmt.Println("This is the error: ", err)
+		return
+	}
+
+	fmt.Println("This is the response: ", resp)
+}
+```

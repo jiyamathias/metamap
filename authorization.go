@@ -27,6 +27,8 @@ func (c *Client) Authorization() (*AuthorizationResponse, error) {
 	payload := AuthorizationRequest{GrantType: "client_credentials"}
 
 	var response AuthorizationResponse
+	//set the header type
+	c.IsBasic = true
 	if err := c.newRequest(method, url, payload, &response); err != nil {
 		return &AuthorizationResponse{}, err
 	}
