@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"time"
 
 	"github.com/pkg/errors"
 )
@@ -25,6 +26,8 @@ type Client struct {
 	ClientId     string
 	ClientSecret string
 	BaseUrl      string
+
+	TokenValidity time.Time // metamap JWT token is only valid for 1hr and afterwards a new JWT token needs to be created intothet to access the resource
 }
 
 // Endocode takes in a string and encoded it into a base64 string
@@ -49,8 +52,18 @@ func New(h *http.Client, clientId, clientSecret string) *Client {
 	}
 }
 
-// newRequest method makes a http request to the metamap server and decodes the server response into the resp(esponse) parameter passed into the newRequest method
+/*
+newRequest makes a http request to the metamap server and decodes the server response into the resp(esponse) parameter passed into the newRequest method
+
+Without the JWT access token, we can't make request to access the reest of MetaMap api and so before making any request, the JWT access token is first verified using the client.VerifyTokenValidity method
+to confirm the validity of the JWT token if it has not expired yet and if it has expired, it request for a new JWT token.
+*/
 func (c *Client) newRequest(method, reqURL string, reqBody interface{}, resp interface{}) error {
+	//JWT access token is first verified before making any request
+	if err := c.VerifyTokenValidity(); err != nil {
+		return err
+	}
+
 	var body io.Reader
 
 	if reqBody != nil {
@@ -73,8 +86,8 @@ func (c *Client) newRequest(method, reqURL string, reqBody interface{}, resp int
 		return errors.Wrap(err, "http client ::: client failed to execute request")
 	}
 
-	if res.StatusCode != http.StatusOK && res.StatusCode != 204 {
-		return errors.Errorf("http client ::: invalid status code received, expected 200/204, got %v", res.StatusCode)
+	if res.StatusCode != http.StatusOK {
+		return errors.Errorf("http client ::: invalid status code received, expected 200, got %v", res.StatusCode)
 	}
 
 	if err := json.NewDecoder(res.Body).Decode(&resp); err != nil {
