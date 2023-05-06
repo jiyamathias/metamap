@@ -81,11 +81,11 @@ func main() {
 }
 ```
 
-- ## NigeriaVotingID
-NigeriaVirtualNIN verifies NIN(National Identification Number).
+- ## NigeriaVotingIDNumber
+NigeriaVotingIDNumber verifies NIN(National Identification Number).
 ### Use this object payload to implement the NigeriaVirtualNIN() method
 ```go
-type NigeriaVotingIDRequest struct {
+type NigeriaVotingIDNumberRequest struct {
 		DocumentNumber string `json:"documentNumber"`
 		FirstName      string `json:"firstName"`
 		LastName       string `json:"lastName"`
@@ -108,14 +108,14 @@ func main() {
 	httpClient := http.Client{}
 	client := metamap.New(&httpClient, clientId, clientSecret)
 
-	req := metamap.NigeriaVotingIDRequest{
+	req := metamap.NigeriaVotingIDNumberRequest{
 		DocumentNumber: "your voters card number",
 		FirstName:      "John",
 		LastName:       "Doe",
 		DateOfBirth:    "2023-05-01",
 		CallbackUrl:    "your callback url",
 	}
-	resp, err := client.NigeriaVotingID(req)
+	resp, err := client.NigeriaVotingIDNumber(req)
 	if err != nil {
 		fmt.Println("This is the error: ", err)
 		return

@@ -30,7 +30,7 @@ type (
 	}
 
 	//voters card
-	NigeriaVotingIDRequest struct {
+	NigeriaVotingIDNumberRequest struct {
 		DocumentNumber string `json:"documentNumber"`
 		FirstName      string `json:"firstName"`
 		LastName       string `json:"lastName"`
@@ -38,7 +38,7 @@ type (
 		CallbackUrl    string `json:"callbackUrl"`
 	}
 
-	NigeriaVotingIDResponse struct {
+	NigeriaVotingIDNumberResponse struct {
 		Status string      `json:"status"`
 		ID     string      `json:"id"`
 		Error  interface{} `json:"error"`
@@ -116,13 +116,13 @@ This method takes in the NigeriaVotingIDRequest{} struct as a parameter.
 
 NOTE: The format for the DateOfBirth is yyyy-mm-dd.
 */
-func (c *Client) NigeriaVotingID(req NigeriaVotingIDRequest) (*NigeriaVotingIDResponse, error) {
+func (c *Client) NigeriaVotingIDNumber(req NigeriaVotingIDNumberRequest) (*NigeriaVotingIDNumberResponse, error) {
 	url := "govchecks/v1/ng/vin"
 	method := MethodPOST
-	var response NigeriaVotingIDResponse
+	var response NigeriaVotingIDNumberResponse
 	c.IsBasic = false
 	if err := c.newRequest(method, url, req, response); err != nil {
-		return &NigeriaVotingIDResponse{}, err
+		return &NigeriaVotingIDNumberResponse{}, err
 	}
 
 	return &response, nil
