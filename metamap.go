@@ -64,6 +64,7 @@ func (c *Client) newRequest(method, reqURL string, reqBody interface{}, resp int
 		return err
 	}
 
+	newURL := c.BaseUrl + reqURL
 	var body io.Reader
 
 	if reqBody != nil {
@@ -74,7 +75,7 @@ func (c *Client) newRequest(method, reqURL string, reqBody interface{}, resp int
 		body = bytes.NewReader(bb)
 	}
 
-	req, err := http.NewRequest(method, reqURL, body)
+	req, err := http.NewRequest(method, newURL, body)
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Authorization", c.AuthToken)
 	if err != nil {

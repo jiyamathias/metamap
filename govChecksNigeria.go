@@ -1,19 +1,5 @@
 package metamap
 
-// {
-// 	"error": null,
-// 	"data": {
-// 	  "id": "1",
-// 	  "firstName": "John",
-// 	  "lastName": "Doe",
-// 	  "dateOfBirth": "04-04-1944",
-// 	  "gender": "M",
-// 	  "phone": "12341234567890",
-// 	  "vNin": "JZ426633988976CH",
-// 	  "photo": "https://media.getmati.com/file?location=eyUkp7zR7LSTnV4x4lJma7L0"
-// 	}
-//   }
-
 type (
 	NigeriaNINRequest struct {
 		//VNIN is a required parameter that must be passed in
@@ -40,21 +26,69 @@ type (
 			Photo       string `json:"photo"`
 		} `json:"data"`
 	}
+
+	NigeriaVotingIDRequest struct {
+		DocumentNumber string `json:"documentNumber"`
+		FirstName      string `json:"firstName"`
+		LastName       string `json:"lastName"`
+		DateOfBirth    string `json:"dateOfBirth"`
+		CallbackUrl    string `json:"callbackUrl"`
+	}
+
+	NigeriaVotingIDResponse struct {
+		Status string      `json:"status"`
+		ID     string      `json:"id"`
+		Error  interface{} `json:"error"`
+		Data   struct {
+			FirstName     string `json:"firstName"`
+			LastName      string `json:"lastName"`
+			MiddleName    string `json:"middlename"`
+			Gender        string `json:"gender"`
+			Occupation    string `json:"occupation"`
+			StateOfOrigin string `json:"stateOfOrigin"`
+			LgaOfOrigin   string `json:"lgaOfOrigin"`
+			OnSpokenLang  string `json:"onspokenlang"`
+			PollingUnit   string `json:"pollingUnit"`
+		} `json:"data"`
+		Timestamp string `json:"timestamp"`
+	}
 )
 
 /*
-VirtualNIN verifies NIN(National Identification Number).
+NigeriaVirtualNIN verifies NIN(National Identification Number).
 
 This method takes in the NigeriaNINRequest{} struct as a parameter. Both the VNIN  and CallbackUrl field are required parameter that must be passed in for the request.
 
+NOTE: The format for the DateOfBirth is yyyy-mm-dd.
+
 It also takes in an optional parameter `metadata` which is a map[string]interface that is passed in to add custom data to the request.
 */
-func (c *Client) VirtualNIN(req NigeriaNINRequest) (*NigeriaNINResponse, error) {
-	url := c.BaseUrl + "govchecks/v1/ng/vnin"
+func (c *Client) NigeriaVirtualNIN(req NigeriaNINRequest) (*NigeriaNINResponse, error) {
+	url := "govchecks/v1/ng/vnin"
 	method := MethodPOST
 	var response NigeriaNINResponse
 	if err := c.newRequest(method, url, req, response); err != nil {
 		return &NigeriaNINResponse{}, err
+	}
+
+	return &response, nil
+}
+
+/*
+NigeriaVotingID verifies Voting Identity Number.
+
+This method takes in the NigeriaVotingIDRequest{} struct as a parameter.
+
+NOTE: The format for the DateOfBirth is yyyy-mm-dd.
+
+It also takes in an optional parameter `metadata` which is a map[string]interface that is passed in to add custom data to the request.
+*/
+func (c *Client) NigeriaVotingID(req NigeriaVotingIDRequest) (*NigeriaVotingIDResponse, error) {
+	url := "govchecks/v1/ng/vin"
+	method := MethodPOST
+	var response NigeriaVotingIDResponse
+	if err := c.newRequest(method, url, req, response); err != nil {
+		return &NigeriaVotingIDResponse{}, err
 	}
 
 	return &response, nil

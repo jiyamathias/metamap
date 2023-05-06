@@ -20,9 +20,9 @@ type (
 	}
 )
 
-// Authorization makes a request to metemap and returns a JWT authorization token to access the rest of metamap services
+// Authorization makes a request to metemap and returns a JWT authorization token to access the rest of metamap services.
 func (c *Client) Authorization() (*AuthorizationResponse, error) {
-	url := c.BaseUrl + "oauth"
+	url := "oauth"
 	method := MethodPOST
 	payload := AuthorizationRequest{GrantType: "client_credentials"}
 
@@ -39,7 +39,7 @@ func (c *Client) Authorization() (*AuthorizationResponse, error) {
 }
 
 /*
-VerifyTokenValidity is a metjod used to verify the JWT token validity
+VerifyTokenValidity is a metjod used to verify the JWT token validity.
 
 Since the JWT token MetaMap gives to have access to it's resources is only valid for 1 hour. The VerifyTokenValidity method
 verifies the time that the JWT token was created against the the current time to confirm if the its already been a hour or not.
