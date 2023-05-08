@@ -105,6 +105,25 @@ type (
 			RegistrationDate string `json:"registrationDate"`
 		} `json:"data"`
 	}
+
+	// Tax Identification Number
+	NigeriaTaxIdentificationNumberRequest struct {
+		TaxNumber   string `json:"taxNumber"`
+		CallbackUrl string `json:"callbackUrl"`
+	}
+
+	NigeriaTaxIdentificationNumberResponse struct {
+		Error interface{} `json:"error"`
+		Data  struct {
+			CompanyName  string `json:"companyName"`
+			FirsNumber   string `json:"FirsNumber"`
+			CacNumber    string `json:"cacNumber"`
+			JtbNumber    string `json:"JtbNumber"`
+			TaxOffice    string `json:"taxOffice"`
+			CompanyPhone string `json:"companyPhone"`
+			CompanyEmail string `json:"companyEmail"`
+		} `json:"data"`
+	}
 )
 
 /*
@@ -165,7 +184,7 @@ func (c *Client) NigeriaDriversLicence(req NigeriaDriversLicenceRequest) (*Niger
 }
 
 /*
-NigeriaCorporateAffairsCommission verifies if a company's Corporate Affairs Commission number is valid.
+NigeriaCorporateAffairsCommission verifies a company's Corporate Affairs Commission number.
 
 This method takes in the NigeriaCorporateAffairsCommissionRequest{} struct as a parameter.
 */
@@ -176,6 +195,23 @@ func (c *Client) NigeriaCorporateAffairsCommission(req NigeriaCorporateAffairsCo
 	c.IsBasic = false
 	if err := c.newRequest(method, url, req, response); err != nil {
 		return &NigeriaCorporateAffairsCommissionResponse{}, err
+	}
+
+	return &response, nil
+}
+
+/*
+NigeriaTaxIdentificationNumber verifies a company's Tax Identification Number.
+
+This method takes in the NigeriaTaxIdentificationNumberRequest{} struct as a parameter.
+*/
+func (c *Client) NigeriaTaxIdentificationNumber(req NigeriaTaxIdentificationNumberRequest) (*NigeriaTaxIdentificationNumberResponse, error) {
+	url := "govchecks/v1/ng/tin"
+	method := MethodPOST
+	var response NigeriaTaxIdentificationNumberResponse
+	c.IsBasic = false
+	if err := c.newRequest(method, url, req, response); err != nil {
+		return &NigeriaTaxIdentificationNumberResponse{}, err
 	}
 
 	return &response, nil

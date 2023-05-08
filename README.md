@@ -172,7 +172,7 @@ func main() {
 NigeriaCorporateAffairsCommission verifies if a company's Corporate Affairs Commission number.
 ### Use this object payload to implement the NigeriaCorporateAffairsCommission() method
 ```go
-NigeriaCorporateAffairsCommissionRequest struct {
+type NigeriaCorporateAffairsCommissionRequest struct {
 	RegistrationNumber string `json:"registrationNumber"`
 	CallbackUrl        string `json:"callbackUrl"`
 }
@@ -196,7 +196,45 @@ func main() {
 		RegistrationNumber: "your registration number",
 		CallbackUrl:    "your callback url",
 	}
-	resp, err := client.NigeriaDriversLicence(req)
+	resp, err := client.NigeriaCorporateAffairsCommission(req)
+	if err != nil {
+		fmt.Println("This is the error: ", err)
+		return
+	}
+
+	fmt.Println("This is the response: ", resp)
+}
+```
+
+- ## NigeriaTaxIdentificationNumber
+NigeriaTaxIdentificationNumber verifies a company's Tax Identification Number.
+### Use this object payload to implement the NigeriaCorporateAffairsCommission() method
+```go
+type NigeriaTaxIdentificationNumberRequest struct {
+	TaxNumber   string `json:"taxNumber"`
+	CallbackUrl string `json:"callbackUrl"`
+}
+
+```
+```go
+package main
+
+import (
+	"fmt"
+	metamap "github.com/iqquee/metamap-go"
+)
+
+func main() {
+	clientId := "your metamap client id"
+	clientSecret := "your metamap client secrete"
+	httpClient := http.Client{}
+	client := metamap.New(&httpClient, clientId, clientSecret)
+
+	req := metamap.NigeriaTaxIdentificationNumberRequest{
+		TaxNumber: "your tax number",
+		CallbackUrl:    "your callback url",
+	}
+	resp, err := client.NigeriaTaxIdentificationNumber(req)
 	if err != nil {
 		fmt.Println("This is the error: ", err)
 		return
