@@ -166,3 +166,42 @@ func main() {
 	fmt.Println("This is the response: ", resp)
 }
 ```
+
+
+- ## NigeriaCorporateAffairsCommission
+NigeriaCorporateAffairsCommission verifies if a company's Corporate Affairs Commission number.
+### Use this object payload to implement the NigeriaCorporateAffairsCommission() method
+```go
+NigeriaCorporateAffairsCommissionRequest struct {
+	RegistrationNumber string `json:"registrationNumber"`
+	CallbackUrl        string `json:"callbackUrl"`
+}
+
+```
+```go
+package main
+
+import (
+	"fmt"
+	metamap "github.com/iqquee/metamap-go"
+)
+
+func main() {
+	clientId := "your metamap client id"
+	clientSecret := "your metamap client secrete"
+	httpClient := http.Client{}
+	client := metamap.New(&httpClient, clientId, clientSecret)
+
+	req := metamap.NigeriaCorporateAffairsCommissionRequest{
+		RegistrationNumber: "your registration number",
+		CallbackUrl:    "your callback url",
+	}
+	resp, err := client.NigeriaDriversLicence(req)
+	if err != nil {
+		fmt.Println("This is the error: ", err)
+		return
+	}
+
+	fmt.Println("This is the response: ", resp)
+}
+```

@@ -2,7 +2,7 @@ package metamap
 
 type (
 
-	//national ID
+	//National ID
 	NigeriaNINRequest struct {
 		//VNIN is a required parameter that must be passed in
 		VNIN        string `json:"vNIN"`
@@ -29,7 +29,7 @@ type (
 		} `json:"data"`
 	}
 
-	//voters card
+	//Voters Card
 	NigeriaVotingIDNumberRequest struct {
 		DocumentNumber string `json:"documentNumber"`
 		FirstName      string `json:"firstName"`
@@ -56,7 +56,7 @@ type (
 		Timestamp string `json:"timestamp"`
 	}
 
-	//drivers licence
+	//Drivers Licence
 	NigeriaDriversLicenceRequest struct {
 		DocumentNumber string `json:"documentNumber"`
 		FirstName      string `json:"firstName"`
@@ -86,6 +86,25 @@ type (
 		} `json:"data"`
 		Timestamp string `json:"timestamp"`
 	}
+
+	//Corporate Affairs Commission
+	NigeriaCorporateAffairsCommissionRequest struct {
+		RegistrationNumber string `json:"registrationNumber"`
+		CallbackUrl        string `json:"callbackUrl"`
+	}
+
+	NigeriaCorporateAffairsCommissionResponse struct {
+		Error interface{} `json:"error"`
+		Data  struct {
+			Type             string `json:"type"`
+			CompanyName      string `json:"companyName"`
+			CacNumber        string `json:"cacNumber"`
+			Status           string `json:"status"`
+			CompanyAddress   string `json:"companyAddress"`
+			CompanyEmail     string `json:"companyEmail"`
+			RegistrationDate string `json:"registrationDate"`
+		} `json:"data"`
+	}
 )
 
 /*
@@ -110,9 +129,9 @@ func (c *Client) NigeriaVirtualNIN(req NigeriaNINRequest) (*NigeriaNINResponse, 
 }
 
 /*
-NigeriaVotingID verifies Voting Identity Number.
+NigeriaVotingIDNumber verifies Voting Identity Number.
 
-This method takes in the NigeriaVotingIDRequest{} struct as a parameter.
+This method takes in the NigeriaVotingIDNumberRequest{} struct as a parameter.
 
 NOTE: The format for the DateOfBirth is yyyy-mm-dd.
 */
@@ -140,6 +159,23 @@ func (c *Client) NigeriaDriversLicence(req NigeriaDriversLicenceRequest) (*Niger
 	c.IsBasic = false
 	if err := c.newRequest(method, url, req, response); err != nil {
 		return &NigeriaDriversLicenceResponse{}, err
+	}
+
+	return &response, nil
+}
+
+/*
+NigeriaCorporateAffairsCommission verifies if a company's Corporate Affairs Commission number is valid.
+
+This method takes in the NigeriaCorporateAffairsCommissionRequest{} struct as a parameter.
+*/
+func (c *Client) NigeriaCorporateAffairsCommission(req NigeriaCorporateAffairsCommissionRequest) (*NigeriaCorporateAffairsCommissionResponse, error) {
+	url := "govchecks/v1/ng/cac"
+	method := MethodPOST
+	var response NigeriaCorporateAffairsCommissionResponse
+	c.IsBasic = false
+	if err := c.newRequest(method, url, req, response); err != nil {
+		return &NigeriaCorporateAffairsCommissionResponse{}, err
 	}
 
 	return &response, nil
