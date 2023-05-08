@@ -245,7 +245,7 @@ func main() {
 ```
 
 - ## NigeriaCACAffiliates
-NigeriaCACAffiliates verifies a major shareholder names and titles if a company's Corporate Affairs Commission number.
+NigeriaCACAffiliates verifies a major shareholder names and titles if a company's Corporate Affairs Commission number is valid.
 ### Use this object payload to implement the NigeriaCorporateAffairsCommission() method
 ```go
 type NigeriaCACAffiliatesRequest struct {
@@ -273,6 +273,48 @@ func main() {
 		CallbackUrl:    "your callback url",
 	}
 	resp, err := client.NigeriaCACAffiliates(req)
+	if err != nil {
+		fmt.Println("This is the error: ", err)
+		return
+	}
+
+	fmt.Println("This is the response: ", resp)
+}
+```
+
+- ## NigeriaBankVerificationNumber
+NigeriaBankVerificationNumber verifies a Bank Verification Number.
+### Use this object payload to implement the NigeriaCorporateAffairsCommission() method
+```go
+type NigeriaBankVerificationNumberRequest struct {
+	DocumentNumber string `json:"documentNumber"`
+	FirstName      string `json:"firstName"`
+	LastName       string `json:"lastName"`
+	CallbackUrl    string `json:"callbackUrl"`
+}
+
+```
+```go
+package main
+
+import (
+	"fmt"
+	metamap "github.com/iqquee/metamap-go"
+)
+
+func main() {
+	clientId := "your metamap client id"
+	clientSecret := "your metamap client secrete"
+	httpClient := http.Client{}
+	client := metamap.New(&httpClient, clientId, clientSecret)
+
+	req := metamap.NigeriaBankVerificationNumberRequest{
+		DocumentNumber: "your BVN number",
+		FirstName: "John",
+		LastName: "Doe",
+		CallbackUrl:    "your callback url",
+	}
+	resp, err := client.NigeriaBankVerificationNumber(req)
 	if err != nil {
 		fmt.Println("This is the error: ", err)
 		return

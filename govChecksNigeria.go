@@ -150,6 +150,14 @@ type (
 			} `json:"shareholders"`
 		} `json:"data"`
 	}
+
+	// Bank Verification Number
+	NigeriaBankVerificationNumberRequest struct {
+		DocumentNumber string `json:"documentNumber"`
+		FirstName      string `json:"firstName"`
+		LastName       string `json:"lastName"`
+		CallbackUrl    string `json:"callbackUrl"`
+	}
 )
 
 /*
@@ -244,7 +252,7 @@ func (c *Client) NigeriaTaxIdentificationNumber(req NigeriaTaxIdentificationNumb
 }
 
 /*
-NigeriaCACAffiliates verifies a major shareholder names and titles if a company's Corporate Affairs Commission number.
+NigeriaCACAffiliates verifies a major shareholder names and titles if a company's Corporate Affairs Commission number is valid.
 
 This method takes in the NigeriaCACAffiliatesRequest{} struct as a parameter.
 */
@@ -255,6 +263,23 @@ func (c *Client) NigeriaCACAffiliates(req NigeriaCACAffiliatesRequest) (*Nigeria
 	c.IsBasic = false
 	if err := c.newRequest(method, url, req, response); err != nil {
 		return &NigeriaCACAffiliatesResponse{}, err
+	}
+
+	return &response, nil
+}
+
+/*
+NigeriaBankVerificationNumber verifies a Bank Verification Number.
+
+This method takes in the NigeriaBankVerificationNumberRequest{} struct as a parameter.
+*/
+func (c *Client) NigeriaBankVerificationNumber(req NigeriaBankVerificationNumberRequest) (*interface{}, error) {
+	url := "govchecks/v1/ng/bvn"
+	method := MethodPOST
+	var response interface{}
+	c.IsBasic = false
+	if err := c.newRequest(method, url, req, response); err != nil {
+		return nil, err
 	}
 
 	return &response, nil
