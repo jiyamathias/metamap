@@ -124,6 +124,32 @@ type (
 			CompanyEmail string `json:"companyEmail"`
 		} `json:"data"`
 	}
+
+	//Corporate Affairs Commission Affilaite
+	NigeriaCACAffiliatesRequest struct {
+		RegistrationNumber string `json:"registrationNumber"`
+		CallbackUrl        string `json:"callbackUrl"`
+	}
+
+	NigeriaCACAffiliatesResponse struct {
+		Error interface{} `json:"error"`
+		Data  struct {
+			Shareholders []struct {
+				Name                string `json:"name"`
+				Position            string `json:"position"`
+				Status              string `json:"status"`
+				DateOfBirth         string `json:"dateOfBirth"`
+				PhoneNumber         string `json:"phoneNumber"`
+				Email               string `json:"email"`
+				City                string `json:"city"`
+				Address             string `json:"address"`
+				IdType              string `json:"idType"`
+				IdNumber            string `json:"idNumber"`
+				Shares              string `json:"shares"`
+				AccreditationNumber string `json:"accreditationNumber"`
+			} `json:"shareholders"`
+		} `json:"data"`
+	}
 )
 
 /*
@@ -212,6 +238,23 @@ func (c *Client) NigeriaTaxIdentificationNumber(req NigeriaTaxIdentificationNumb
 	c.IsBasic = false
 	if err := c.newRequest(method, url, req, response); err != nil {
 		return &NigeriaTaxIdentificationNumberResponse{}, err
+	}
+
+	return &response, nil
+}
+
+/*
+NigeriaCACAffiliates verifies a major shareholder names and titles if a company's Corporate Affairs Commission number.
+
+This method takes in the NigeriaCACAffiliatesRequest{} struct as a parameter.
+*/
+func (c *Client) NigeriaCACAffiliates(req NigeriaCACAffiliatesRequest) (*NigeriaCACAffiliatesResponse, error) {
+	url := "govchecks/v1/ng/cac-affiliates"
+	method := MethodPOST
+	var response NigeriaCACAffiliatesResponse
+	c.IsBasic = false
+	if err := c.newRequest(method, url, req, response); err != nil {
+		return &NigeriaCACAffiliatesResponse{}, err
 	}
 
 	return &response, nil
