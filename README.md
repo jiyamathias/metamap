@@ -81,6 +81,7 @@ func main() {
 
 - ## ArgentinaRENAPER
 ArgentinaRENAPER verify a user's DNI (Documento Nacional de Identidad) number and identity.
+NOTE: Use the ArgentinaDNI() to validate the submitted DNI card.
 ### Use this object payload to implement the ArgentinaRENAPER() method
 ```go
 type ArgentinaRENAPERRequest struct {
@@ -119,6 +120,57 @@ func main() {
 		CallbackUrl:    "your callback url",
 	}
 	resp, err := client.ArgentinaRENAPER(req)
+	if err != nil {
+		fmt.Println("This is the error: ", err)
+		return
+	}
+
+	fmt.Println("This is the response: ", resp)
+}
+```
+
+- ## ArgentinaRENAPERPremium
+ArgentinaRENAPERPremium verify a user's DNI (Documento Nacional de Identidad) number and identity.
+NOTE: You do not need to validate the submitted DNI card parameters via ArgentinaDNI() as this check is implemented in here.
+### Use this object payload to implement the ArgentinaRENAPERPremium() method
+```go
+type ArgentinaRENAPERPremiumRequest struct {
+		// Document number from either a National ID or a driver license.
+		DocumentNumber string `json:"documentNumber"`
+		// E.g "2023-05-10"
+		DateOfBirth string `json:"dateOfBirth"`
+		// Date of document issue E.g "2023-05-10"
+		IssueDate string `json:"issueDate"`
+		// M for male, F for female.
+		Gender      string `json:"gender"`
+		CallbackUrl string `json:"callbackUrl"`
+		// Use Metadata to add internal references for your outputs/webhooks.
+		Metadata map[string]interface{} `json:"metadata"`
+	}
+
+```
+```go
+package main
+
+import (
+	"fmt"
+	metamap "github.com/iqquee/metamap-go"
+)
+
+func main() {
+	clientId := "your metamap client id"
+	clientSecret := "your metamap client secrete"
+	httpClient := http.Client{}
+	client := metamap.New(&httpClient, clientId, clientSecret)
+
+	req := metamap.ArgentinaRENAPERPremiumRequest{
+		DocumentNumber: "your drivers licence",
+		DateOfBirth:      "your data of birth e.g 2023-05-10",
+		Gender:       "M", // for male
+		IssueDate: "your data of issue",
+		CallbackUrl:    "your callback url",
+	}
+	resp, err := client.ArgentinaRENAPERPremium(req)
 	if err != nil {
 		fmt.Println("This is the error: ", err)
 		return
