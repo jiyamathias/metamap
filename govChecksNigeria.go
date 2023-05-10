@@ -88,12 +88,12 @@ type (
 	}
 
 	//Corporate Affairs Commission
-	NigeriaCorporateAffairsCommissionRequest struct {
+	NigeriaCACRequest struct {
 		RegistrationNumber string `json:"registrationNumber"`
 		CallbackUrl        string `json:"callbackUrl"`
 	}
 
-	NigeriaCorporateAffairsCommissionResponse struct {
+	NigeriaCACResponse struct {
 		Error interface{} `json:"error"`
 		Data  struct {
 			Type             string `json:"type"`
@@ -152,7 +152,7 @@ type (
 	}
 
 	// Bank Verification Number
-	NigeriaBankVerificationNumberRequest struct {
+	NigeriaBVNRequest struct {
 		DocumentNumber string `json:"documentNumber"`
 		FirstName      string `json:"firstName"`
 		LastName       string `json:"lastName"`
@@ -218,17 +218,17 @@ func (c *Client) NigeriaDriversLicence(req NigeriaDriversLicenceRequest) (*Niger
 }
 
 /*
-NigeriaCorporateAffairsCommission verifies a company's Corporate Affairs Commission number.
+NigeriaCAC verifies a company's CAC (Corporate Affairs Commission) number.
 
-This method takes in the NigeriaCorporateAffairsCommissionRequest{} struct as a parameter.
+This method takes in the NigeriaCACRequest{} struct as a parameter.
 */
-func (c *Client) NigeriaCorporateAffairsCommission(req NigeriaCorporateAffairsCommissionRequest) (*NigeriaCorporateAffairsCommissionResponse, error) {
+func (c *Client) NigeriaCAC(req NigeriaCACRequest) (*NigeriaCACResponse, error) {
 	url := "govchecks/v1/ng/cac"
 	method := MethodPOST
-	var response NigeriaCorporateAffairsCommissionResponse
+	var response NigeriaCACResponse
 	c.IsBasic = false
 	if err := c.newRequest(method, url, req, response); err != nil {
-		return &NigeriaCorporateAffairsCommissionResponse{}, err
+		return &NigeriaCACResponse{}, err
 	}
 
 	return &response, nil
@@ -269,11 +269,11 @@ func (c *Client) NigeriaCACAffiliates(req NigeriaCACAffiliatesRequest) (*Nigeria
 }
 
 /*
-NigeriaBankVerificationNumber verifies a Bank Verification Number.
+NigeriaBVN verifies a BVN (Bank Verification Number).
 
-This method takes in the NigeriaBankVerificationNumberRequest{} struct as a parameter.
+This method takes in the NigeriaBVNRequest{} struct as a parameter.
 */
-func (c *Client) NigeriaBankVerificationNumber(req NigeriaBankVerificationNumberRequest) (*interface{}, error) {
+func (c *Client) NigeriaBVN(req NigeriaBVNRequest) (*interface{}, error) {
 	url := "govchecks/v1/ng/bvn"
 	method := MethodPOST
 	var response interface{}

@@ -28,6 +28,57 @@ $ touch example.go
 # open the just created example.go file in the text editor of your choice
 ```
 
+## GovChecks: Argentina
+
+- ## ArgentinaDNI
+ArgentinaDNI verify a user's DNI (Documento Nacional de Identidad) based on card number and issue date.
+### Use this object payload to implement the ArgentinaDNI() method
+```go
+type ArgentinaDNIRequest struct {
+		// Document number from either a National ID or a driver license.
+		DocumentNumber string `json:"documentNumber"`
+		DateOfBirth    string `json:"dateOfBirth"`
+		// M for male, F for female.
+		Gender string `json:"gender"`
+		// Document issue date.
+		DateOfIssue string                 `json:"dateOfIssue"`
+		CallbackUrl string                 `json:"callbackUrl"`
+		// Use Metadata to add internal references for your outputs/webhooks.
+		Metadata    map[string]interface{} `json:"metadata"`
+	}
+
+```
+```go
+package main
+
+import (
+	"fmt"
+	metamap "github.com/iqquee/metamap-go"
+)
+
+func main() {
+	clientId := "your metamap client id"
+	clientSecret := "your metamap client secrete"
+	httpClient := http.Client{}
+	client := metamap.New(&httpClient, clientId, clientSecret)
+
+	req := metamap.ArgentinaDNIRequest{
+		DocumentNumber: "your drivers licence",
+		DateOfBirth:      "your data of birth e.g 2023-05-10",
+		Gender:       "M", // for male
+		DateOfIssue: "your data of issue",
+		CallbackUrl:    "your callback url",
+	}
+	resp, err := client.ArgentinaDNI(req)
+	if err != nil {
+		fmt.Println("This is the error: ", err)
+		return
+	}
+
+	fmt.Println("This is the response: ", resp)
+}
+```
+
 
 ## GovChecks: Nigeria
 - ## NigeriaVirtualNIN
@@ -168,11 +219,11 @@ func main() {
 ```
 
 
-- ## NigeriaCorporateAffairsCommission
-NigeriaCorporateAffairsCommission verifies if a company's Corporate Affairs Commission number.
+- ## NigeriaCAC
+NigeriaCAC verifies a company's CAC (Corporate Affairs Commission) number.
 ### Use this object payload to implement the NigeriaCorporateAffairsCommission() method
 ```go
-type NigeriaCACAffiliatesRequest struct {
+type NigeriaCACRequest struct {
 	RegistrationNumber string `json:"registrationNumber"`
 	CallbackUrl        string `json:"callbackUrl"`
 }
@@ -192,11 +243,11 @@ func main() {
 	httpClient := http.Client{}
 	client := metamap.New(&httpClient, clientId, clientSecret)
 
-	req := metamap.NigeriaCorporateAffairsCommissionRequest{
+	req := metamap.NigeriaCACRequest{
 		RegistrationNumber: "your registration number",
 		CallbackUrl:    "your callback url",
 	}
-	resp, err := client.NigeriaCorporateAffairsCommission(req)
+	resp, err := client.NigeriaCAC(req)
 	if err != nil {
 		fmt.Println("This is the error: ", err)
 		return
@@ -246,7 +297,7 @@ func main() {
 
 - ## NigeriaCACAffiliates
 NigeriaCACAffiliates verifies a major shareholder names and titles if a company's Corporate Affairs Commission number is valid.
-### Use this object payload to implement the NigeriaCorporateAffairsCommission() method
+### Use this object payload to implement the NigeriaCACAffiliates() method
 ```go
 type NigeriaCACAffiliatesRequest struct {
 	RegistrationNumber string `json:"registrationNumber"`
@@ -282,11 +333,11 @@ func main() {
 }
 ```
 
-- ## NigeriaBankVerificationNumber
-NigeriaBankVerificationNumber verifies a Bank Verification Number.
-### Use this object payload to implement the NigeriaCorporateAffairsCommission() method
+- ## NigeriaBVN
+verifies a BVN (Bank Verification Number).
+### Use this object payload to implement the NigeriaBVN() method
 ```go
-type NigeriaBankVerificationNumberRequest struct {
+type NigeriaBVNRequest struct {
 	DocumentNumber string `json:"documentNumber"`
 	FirstName      string `json:"firstName"`
 	LastName       string `json:"lastName"`
@@ -308,13 +359,13 @@ func main() {
 	httpClient := http.Client{}
 	client := metamap.New(&httpClient, clientId, clientSecret)
 
-	req := metamap.NigeriaBankVerificationNumberRequest{
+	req := metamap.NigeriaBVNRequest{
 		DocumentNumber: "your BVN number",
 		FirstName: "John",
 		LastName: "Doe",
 		CallbackUrl:    "your callback url",
 	}
-	resp, err := client.NigeriaBankVerificationNumber(req)
+	resp, err := client.NigeriaBVN(req)
 	if err != nil {
 		fmt.Println("This is the error: ", err)
 		return
