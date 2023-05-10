@@ -79,6 +79,55 @@ func main() {
 }
 ```
 
+- ## ArgentinaRENAPER
+ArgentinaRENAPER verify a user's DNI (Documento Nacional de Identidad) number and identity.
+### Use this object payload to implement the ArgentinaRENAPER() method
+```go
+type ArgentinaRENAPERRequest struct {
+		// Document number from either a National ID or a driver license.
+		DocumentNumber string `json:"documentNumber"`
+		DateOfBirth    string `json:"dateOfBirth"`
+		// M for male, F for female.
+		Gender string `json:"gender"`
+		// Document issue date.
+		DateOfIssue string                 `json:"dateOfIssue"`
+		CallbackUrl string                 `json:"callbackUrl"`
+		// Use Metadata to add internal references for your outputs/webhooks.
+		Metadata    map[string]interface{} `json:"metadata"`
+	}
+
+```
+```go
+package main
+
+import (
+	"fmt"
+	metamap "github.com/iqquee/metamap-go"
+)
+
+func main() {
+	clientId := "your metamap client id"
+	clientSecret := "your metamap client secrete"
+	httpClient := http.Client{}
+	client := metamap.New(&httpClient, clientId, clientSecret)
+
+	req := metamap.ArgentinaRENAPERRequest{
+		DocumentNumber: "your drivers licence",
+		DateOfBirth:      "your data of birth e.g 2023-05-10",
+		Gender:       "M", // for male
+		DateOfIssue: "your data of issue",
+		CallbackUrl:    "your callback url",
+	}
+	resp, err := client.ArgentinaRENAPER(req)
+	if err != nil {
+		fmt.Println("This is the error: ", err)
+		return
+	}
+
+	fmt.Println("This is the response: ", resp)
+}
+```
+
 
 ## GovChecks: Nigeria
 - ## NigeriaVirtualNIN
