@@ -32,6 +32,8 @@ $ touch example.go
 
 - ## ArgentinaDNI
 ArgentinaDNI verify a user's DNI (Documento Nacional de Identidad) based on card number and issue date.
+
+This method takes in the ArgentinaDNIRequest{} struct as a parameter.
 ### Use this object payload to implement the ArgentinaDNI() method
 ```go
 type ArgentinaDNIRequest struct {
@@ -63,7 +65,7 @@ func main() {
 	client := metamap.New(&httpClient, clientId, clientSecret)
 
 	req := metamap.ArgentinaDNIRequest{
-		DocumentNumber: "your drivers licence",
+		DocumentNumber: "your document number",
 		DateOfBirth:      "your data of birth e.g 2023-05-10",
 		Gender:       "M", // for male
 		DateOfIssue: "your data of issue",
@@ -81,7 +83,10 @@ func main() {
 
 - ## ArgentinaRENAPER
 ArgentinaRENAPER verify a user's DNI (Documento Nacional de Identidad) number and identity.
+
 NOTE: Use the ArgentinaDNI() to validate the submitted DNI card.
+
+This method takes in the ArgentinaRENAPERRequest{} struct as a parameter.
 ### Use this object payload to implement the ArgentinaRENAPER() method
 ```go
 type ArgentinaRENAPERRequest struct {
@@ -113,7 +118,7 @@ func main() {
 	client := metamap.New(&httpClient, clientId, clientSecret)
 
 	req := metamap.ArgentinaRENAPERRequest{
-		DocumentNumber: "your drivers licence",
+		DocumentNumber: "your document number",
 		DateOfBirth:      "your data of birth e.g 2023-05-10",
 		Gender:       "M", // for male
 		DateOfIssue: "your data of issue",
@@ -131,7 +136,10 @@ func main() {
 
 - ## ArgentinaRENAPERPremium
 ArgentinaRENAPERPremium verify a user's DNI (Documento Nacional de Identidad) number and identity.
+
 NOTE: You do not need to validate the submitted DNI card parameters via ArgentinaDNI() as this check is implemented in here.
+
+This method takes in the ArgentinaRENAPERPremiumRequest{} struct as a parameter.
 ### Use this object payload to implement the ArgentinaRENAPERPremium() method
 ```go
 type ArgentinaRENAPERPremiumRequest struct {
@@ -164,7 +172,7 @@ func main() {
 	client := metamap.New(&httpClient, clientId, clientSecret)
 
 	req := metamap.ArgentinaRENAPERPremiumRequest{
-		DocumentNumber: "your drivers licence",
+		DocumentNumber: "your document number",
 		DateOfBirth:      "your data of birth e.g 2023-05-10",
 		Gender:       "M", // for male
 		IssueDate: "your data of issue",
@@ -180,6 +188,52 @@ func main() {
 }
 ```
 
+- ## ArgentinaRENAPERExtended
+ArgentinaRENAPERExtended verify a user's DNI (Documento Nacional de Identidad) number and identity against multiple databases.
+
+NOTE: Use the ArgentinaDNI() to validate the submitted DNI card.
+
+This method takes in the ArgentinaRENAPERExtendedRequest{} struct as a parameter.
+### Use this object payload to implement the ArgentinaRENAPERExtended() method
+```go
+type ArgentinaRENAPERExtendedRequest struct {
+	// Document number from either a National ID or a driver license
+	DocumentNumber string `json:"documentNumber"`
+	FullName       string `json:"fullName"`
+	CallbackUrl    string `json:"callbackUrl"`
+	// Use Metadata to add internal references for your outputs/webhooks.
+	Metadata map[string]interface{} `json:"metadata"`
+}
+
+```
+```go
+package main
+
+import (
+	"fmt"
+	metamap "github.com/iqquee/metamap-go"
+)
+
+func main() {
+	clientId := "your metamap client id"
+	clientSecret := "your metamap client secrete"
+	httpClient := http.Client{}
+	client := metamap.New(&httpClient, clientId, clientSecret)
+
+	req := metamap.ArgentinaRENAPERExtendedRequest{
+		DocumentNumber: "your document number",
+		FullName:      "your full name",
+		CallbackUrl:    "your callback url",
+	}
+	resp, err := client.ArgentinaRENAPERExtended(req)
+	if err != nil {
+		fmt.Println("This is the error: ", err)
+		return
+	}
+
+	fmt.Println("This is the response: ", resp)
+}
+```
 
 ## GovChecks: Nigeria
 - ## NigeriaVirtualNIN

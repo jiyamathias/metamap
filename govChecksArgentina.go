@@ -43,12 +43,12 @@ type (
 	ArgentinaRENAPERResponse struct {
 		Error interface{} `json:"error"`
 		Data  struct {
-			DateOfBirth  string      `json:"dateOfBirth"`
-			FullName     string      `json:"fullName"`
-			DniNumber    string      `json:"dniNumber"`
-			Cuit         string      `json:"cuit"`
-			PhoneNumbers []string    `json:"phoneNumbers"`
-			Deceased     interface{} `json:"deceased"`
+			DateOfBirth  string   `json:"dateOfBirth"`
+			FullName     string   `json:"fullName"`
+			DniNumber    string   `json:"dniNumber"`
+			Cuit         string   `json:"cuit"`
+			PhoneNumbers []string `json:"phoneNumbers"`
+			Deceased     bool     `json:"deceased"`
 		} `json:"data"`
 	}
 
@@ -101,6 +101,56 @@ type (
 			IssueDateValidation  string `json:"issueDateValidation"`
 			GenderValidation     string `json:"genderValidation"`
 		} `json:"data"`
+	}
+
+	// ArgentinaRENAPERExtended
+	ArgentinaRENAPERExtendedRequest struct {
+		// Document number from either a National ID or a driver license
+		DocumentNumber string `json:"documentNumber"`
+		FullName       string `json:"fullName"`
+		CallbackUrl    string `json:"callbackUrl"`
+		// Use Metadata to add internal references for your outputs/webhooks.
+		Metadata map[string]interface{} `json:"metadata"`
+	}
+
+	ArgentinaRENAPERExtendedResponse struct {
+		Resource string `json:"resource"`
+		Step     struct {
+			Status int         `json:"status"`
+			Id     string      `json:"id"`
+			Error  interface{} `json:"error"`
+			Data   struct {
+				DateOfBirth         string      `json:"dateOfBirth"`
+				DateOfDeath         string      `json:"dateOfDeath"`
+				Email               string      `json:"email"`
+				FullName            string      `json:"fullName"`
+				FirstName           string      `json:"firstName"`
+				Surname             string      `json:"surname"`
+				TaxIdType           string      `json:"taxIdType"`
+				DniNumber           string      `json:"dniNumber"`
+				TaxNumber           string      `json:"taxNumber"`
+				ActivityCode        string      `json:"activityCode"`
+				ActivityDescription string      `json:"activityDescription"`
+				Address             string      `json:"address"`
+				Nationality         string      `json:"nationality"`
+				Gender              string      `json:"gender"`
+				DateOfIssue         string      `json:"dateOfIssue"`
+				DateOfExpiry        string      `json:"dateOfExpiry"`
+				TransactionNumber   string      `json:"transactionNumber"`
+				Version             string      `json:"version"`
+				Sanctioned          interface{} `json:"sanctioned"`
+				Pep                 interface{} `json:"pep"`
+				SujetoObligado      interface{} `json:"sujetoObligado"`
+				DocumentNumber      string      `json:"documentNumber"`
+				Cuit                string      `json:"cuit"`
+				PhoneNumbers        []string    `json:"phoneNumbers"`
+				Deceased            bool        `json:"deceased"`
+			} `json:"data"`
+			DocumentType string `json:"documentType"`
+		} `json:"step"`
+		Timestamp string `json:"timestamp"`
+		EventName string `json:"eventName"`
+		FlowId    string `json:"flowId"`
 	}
 )
 
@@ -164,6 +214,35 @@ func (c *Client) ArgentinaRENAPERPremium(req ArgentinaRENAPERPremiumRequest) (*A
 	c.IsBasic = false
 	if err := c.newRequest(method, url, req, response); err != nil {
 		return &ArgentinaRENAPERPremiumResponse{}, err
+	}
+
+	return &response, nil
+}
+
+/*
+ArgentinaRENAPERExtended verify a user's DNI (Documento Nacional de Identidad) number and identity against multiple databases.
+
+This method takes in the ArgentinaRENAPERExtendedRequest{} struct as a parameter.
+
+NOTE: Use the ArgentinaDNI() to validate the submitted DNI card.
+
+MetaMap connects with the following databases to validate that the National Identity Document (Documento Nacional de Identidad / DNI) number present on the ID card exists:
+
+--Argentinian National Registry of Persons (Registro Nacional de la Persona / RENAPER)
+
+--Federal Administration of Public Income (Administración Federal de Ingresos Públicos / AFIP)
+
+--Politically Exposed Person (Persona Expuesta Políticamente / PEP)
+
+This merit also checks if the user associated with the DNI has any sanctions.
+*/
+func (c *Client) ArgentinaRENAPERExtended(req ArgentinaRENAPERExtendedRequest) (*ArgentinaRENAPERExtendedResponse, error) {
+	url := "govchecks/v1/ar/renaper-extended"
+	method := MethodPOST
+	var response ArgentinaRENAPERExtendedResponse
+	c.IsBasic = false
+	if err := c.newRequest(method, url, req, response); err != nil {
+		return &ArgentinaRENAPERExtendedResponse{}, err
 	}
 
 	return &response, nil
