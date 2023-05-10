@@ -168,6 +168,10 @@ This method takes in the NigeriaNINRequest{} struct as a parameter. Both the VNI
 NOTE: The format for the DateOfBirth is yyyy-mm-dd.
 
 It also takes in an optional parameter `metadata` which is a map[string]interface that is passed in to add custom data to the request.
+
+MetaMap takes a user's virtual NIN - one-time verification code from the official NIMC Application or code generated via USSD request *346*3*Your NIN*715461# to verify their identity through the National Identity Management Commission (NIMC) database.
+
+You can reach out to the official NIMC article(https://nimc.gov.ng/nin-tokenization/) to learn more about the tokenization initiative.
 */
 func (c *Client) NigeriaVirtualNIN(req NigeriaNINRequest) (*NigeriaNINResponse, error) {
 	url := "govchecks/v1/ng/vnin"
@@ -187,6 +191,8 @@ NigeriaVotingIDNumber verifies Voting Identity Number.
 This method takes in the NigeriaVotingIDNumberRequest{} struct as a parameter.
 
 NOTE: The format for the DateOfBirth is yyyy-mm-dd.
+
+MetaMap verifies a user's identity information and their Voting Identity Number (VIN) through the Independent National Electoral Commission (INEC).
 */
 func (c *Client) NigeriaVotingIDNumber(req NigeriaVotingIDNumberRequest) (*NigeriaVotingIDNumberResponse, error) {
 	url := "govchecks/v1/ng/vin"
@@ -204,6 +210,8 @@ func (c *Client) NigeriaVotingIDNumber(req NigeriaVotingIDNumberRequest) (*Niger
 NigeriaDriversLicence verifies drivers licence.
 
 This method takes in the NigeriaDriversLicenceRequest{} struct as a parameter.
+
+MetaMap verifies a user's identity information and their driver license number through the Federal Road Safety Commission (FRSC).
 */
 func (c *Client) NigeriaDriversLicence(req NigeriaDriversLicenceRequest) (*NigeriaDriversLicenceResponse, error) {
 	url := "govchecks/v1/ng/dl"
@@ -221,6 +229,8 @@ func (c *Client) NigeriaDriversLicence(req NigeriaDriversLicenceRequest) (*Niger
 NigeriaCAC verifies a company's CAC (Corporate Affairs Commission) number.
 
 This method takes in the NigeriaCACRequest{} struct as a parameter.
+
+MetaMap checks that a company's Corporate Affairs Commission (CAC) registration number is valid as either a business name (BN) or a registered company (RC) for a limited liability company (LLC).
 */
 func (c *Client) NigeriaCAC(req NigeriaCACRequest) (*NigeriaCACResponse, error) {
 	url := "govchecks/v1/ng/cac"
@@ -238,6 +248,8 @@ func (c *Client) NigeriaCAC(req NigeriaCACRequest) (*NigeriaCACResponse, error) 
 NigeriaTaxIdentificationNumber verifies a company's Tax Identification Number.
 
 This method takes in the NigeriaTaxIdentificationNumberRequest{} struct as a parameter.
+
+MetaMap checks that a company's tax ID number (TIN) — issued from either the Federal Inland Revenue Service (FIRS) or Joint Tax Board (JBT) — is valid as either a business name (BN) or registered company (RC) for a limited liability company (LLC).
 */
 func (c *Client) NigeriaTaxIdentificationNumber(req NigeriaTaxIdentificationNumberRequest) (*NigeriaTaxIdentificationNumberResponse, error) {
 	url := "govchecks/v1/ng/tin"
@@ -255,6 +267,8 @@ func (c *Client) NigeriaTaxIdentificationNumber(req NigeriaTaxIdentificationNumb
 NigeriaCACAffiliates verifies a major shareholder names and titles if a company's Corporate Affairs Commission number is valid.
 
 This method takes in the NigeriaCACAffiliatesRequest{} struct as a parameter.
+
+If a company's Corporate Affairs Commission (CAC) registration number is valid, MetaMap will return the names of major shareholders and their titles.
 */
 func (c *Client) NigeriaCACAffiliates(req NigeriaCACAffiliatesRequest) (*NigeriaCACAffiliatesResponse, error) {
 	url := "govchecks/v1/ng/cac-affiliates"
