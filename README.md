@@ -28,7 +28,7 @@ $ touch example.go
 # open the just created example.go file in the text editor of your choice
 ```
 
-## GovChecks: Argentina
+# GovChecks: Argentina
 
 - ## ArgentinaDNI
 ArgentinaDNI verify a user's DNI (Documento Nacional de Identidad) based on card number and issue date.
@@ -235,7 +235,49 @@ func main() {
 }
 ```
 
-## GovChecks: Nigeria
+# GovChecks: Brazil
+
+- ## BrazilCNPJValidation
+BrazilCNPJValidation validate a business's National Registry of Legal Entities number.
+
+This method takes in the BrazilCNPJValidationRequest{} struct as a parameter.
+### Use this object payload to implement the BrazilCNPJValidation() method
+```go
+type BrazilCNPJValidationRequest struct {
+	Cnpj        string `json:"cnpj"`
+	CallbackUrl string `json:"callbackUrl"`
+}
+
+```
+```go
+package main
+
+import (
+	"fmt"
+	metamap "github.com/iqquee/metamap-go"
+)
+
+func main() {
+	clientId := "your metamap client id"
+	clientSecret := "your metamap client secrete"
+	httpClient := http.Client{}
+	client := metamap.New(&httpClient, clientId, clientSecret)
+
+	req := metamap.BrazilCNPJValidationRequest{
+		Cnpj: "your cnpj number",
+		CallbackUrl:    "your callback url",
+	}
+	resp, err := client.BrazilCNPJValidation(req)
+	if err != nil {
+		fmt.Println("This is the error: ", err)
+		return
+	}
+
+	fmt.Println("This is the response: ", resp)
+}
+```
+
+# GovChecks: Nigeria
 - ## NigeriaVirtualNIN
 NigeriaVirtualNIN verifies NIN(National Identification Number).
 
