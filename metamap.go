@@ -20,12 +20,13 @@ const (
 
 // Client is the struct holding all of the variables to be used
 type Client struct {
-	Http         *http.Client
-	AccessToken  string
-	AuthToken    string
-	ClientId     string
-	ClientSecret string
-	BaseUrl      string
+	Http              *http.Client
+	AccessToken       string
+	AuthToken         string
+	ClientId          string
+	ClientSecret      string
+	BaseUrl           string
+	IsMultipartHeader bool
 	/*
 		IsBasic is used to determine what kind of request is being being made so that the request header  can be set accordingly.
 
@@ -82,6 +83,10 @@ func (c *Client) newRequest(method, reqURL string, reqBody interface{}, resp int
 
 	req, err := http.NewRequest(method, newURL, body)
 	req.Header.Set("Content-Type", "application/json")
+	//set multipart headers
+	if c.IsMultipartHeader {
+		req.Header.Set("Content-Type", "multipart/form-data")
+	}
 	if c.IsBasic {
 		authToken := fmt.Sprintf("Basic %s", c.AuthToken)
 		req.Header.Set("Authorization", authToken)

@@ -153,6 +153,30 @@ type (
 			FathersNameSimilarity int    `json:"fathersNameSimilarity"`
 		} `json:"data"`
 	}
+
+	// BrazilCPFLEGACY
+	BrazilCPFLEGACYRequest struct {
+		CpfNumber      string `json:"cpfNumber"`
+		FullName       string `json:"fullName"`
+		DocumentNumber string `json:"documentNumber"`
+		DateOfBirth    string `json:"dateOfBirth"`
+		DateOfExpiry   string `json:"dateOfExpiry"`
+		DocumentType   string `json:"documentType"`
+	}
+
+	BrazilCPFLEGACYResponse struct {
+		Error interface{} `json:"error"`
+		Data  struct {
+			CPFNumber      string `json:"CPFNumber"`
+			Gender         string `json:"gender"`
+			Nationality    string `json:"nationality"`
+			TaxStatus      string `json:"taxStatus"`
+			FullName       string `json:"fullName"`
+			DateOfBirth    string `json:"dateOfBirth"`
+			DocumentType   string `json:"documentType"`
+			DocumentNumber string `json:"documentNumber"`
+		} `json:"data"`
+	}
 )
 
 /*
@@ -203,12 +227,35 @@ This method takes in the BrazilCPFValidationRequest{} struct as a parameter.
 MetaMap connects with the Brazilian Internal Revenue Service (Ministério da Fazenda / Treasury) to validate that the Registration of Individuals (Cadastro de Pessoas Físicas / CPF) number present in the ID card exists and its owner matches the data obtained from it.
 */
 func (c *Client) BrazilCPFValidation(req BrazilCPFValidationRequest) (*BrazilCPFValidationResponse, error) {
-	url := "govchecks/v1/br/cnpj-extended"
+	url := "govchecks/v1/br/cpf-validation"
 	method := MethodPOST
 	var response BrazilCPFValidationResponse
 	c.IsBasic = false
 	if err := c.newRequest(method, url, req, response); err != nil {
 		return &BrazilCPFValidationResponse{}, err
+	}
+
+	return &response, nil
+}
+
+/*
+BrazilCPFLEGACY verify a user's CPF number and identity.
+
+This method takes in the BrazilCPFLEGACYRequest{} struct as a parameter.
+
+NOTE: This version of the CPF check only handles individual validation requests. Use the new version of the BrazilCPFValidation() which can handle batch validation requests.
+
+MetaMap connects with the Brazilian IRS (Ministério da Fazenda / Treasury) to validate that the CPF (Cadastro de Pessoas Físicas / Registration of Individuals) number present in the ID card exists and its owner matches the data obtained from it.
+*/
+func (c *Client) BrazilCPFLEGACY(req BrazilCPFLEGACYRequest) (*BrazilCPFLEGACYResponse, error) {
+	url := "govchecks/v1/br/cpf"
+	method := MethodPOST
+	var response BrazilCPFLEGACYResponse
+	c.IsBasic = false
+	//this method required multipart form data
+	c.IsMultipartHeader = true
+	if err := c.newRequest(method, url, req, response); err != nil {
+		return &BrazilCPFLEGACYResponse{}, err
 	}
 
 	return &response, nil

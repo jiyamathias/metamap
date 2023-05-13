@@ -372,6 +372,58 @@ func main() {
 }
 ```
 
+
+- ## BrazilCPFLEGACY
+BrazilCPFLEGACY verify a user's CPF number and identity.
+
+NOTE: This version of the CPF check only handles individual validation requests. Use the new version of the BrazilCPFValidation() which can handle batch validation requests.
+
+This method takes in the BrazilCPFLEGACYRequest{} struct as a parameter.
+### Use this object payload to implement the BrazilCPFValidation() method
+```go
+type BrazilCPFLEGACYRequest struct {
+	CpfNumber      string `json:"cpfNumber"`
+	FullName       string `json:"fullName"`
+	DocumentNumber string `json:"documentNumber"`
+	DateOfBirth    string `json:"dateOfBirth"`
+	DateOfExpiry   string `json:"dateOfExpiry"`
+	DocumentType   string `json:"documentType"`
+}
+
+```
+```go
+package main
+
+import (
+	"fmt"
+	metamap "github.com/iqquee/metamap-go"
+)
+
+func main() {
+	clientId := "your metamap client id"
+	clientSecret := "your metamap client secrete"
+	httpClient := http.Client{}
+	client := metamap.New(&httpClient, clientId, clientSecret)
+
+	req := metamap.BrazilCPFLEGACYRequest{
+		CpfNumber: "012.345.678-90",
+		FullName: "JOHN DOE",
+		DateOfBirth: "1900-01-01",
+		DateOfExpiry: "2021-12-31",
+		DocumentType: "national-id",
+		DocumentNumber: "0123456789",
+	}
+	resp, err := client.BrazilCPFLEGACY(req)
+	if err != nil {
+		fmt.Println("This is the error: ", err)
+		return
+	}
+
+	fmt.Println("This is the response: ", resp)
+}
+```
+
+
 # GovChecks: Nigeria
 - ## NigeriaVirtualNIN
 NigeriaVirtualNIN verifies NIN(National Identification Number).
