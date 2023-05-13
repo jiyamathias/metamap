@@ -177,6 +177,26 @@ type (
 			DocumentNumber string `json:"documentNumber"`
 		} `json:"data"`
 	}
+
+	// BrazilCPFLight
+	BrazilCPFLightRequest struct {
+		// CPF number
+		Cpf         string `json:"cpf"`
+		CallbackUrl string `json:"callbackUrl"`
+	}
+
+	BrazilCPFLightResponse struct {
+		Status int         `json:"status"`
+		Id     string      `json:"id"`
+		Error  interface{} `json:"error"`
+		Data   struct {
+			FullName    string `json:"fullName"`
+			DateOfBirth string `json:"dateOfBirth"`
+			Cpf         string `json:"cpf"`
+			TaxStatus   string `json:"taxStatus"`
+		} `json:"data"`
+		Timestamp string `json:"timestamp"`
+	}
 )
 
 /*
@@ -256,6 +276,25 @@ func (c *Client) BrazilCPFLEGACY(req BrazilCPFLEGACYRequest) (*BrazilCPFLEGACYRe
 	c.IsMultipartHeader = true
 	if err := c.newRequest(method, url, req, response); err != nil {
 		return &BrazilCPFLEGACYResponse{}, err
+	}
+
+	return &response, nil
+}
+
+/*
+BrazilCPFLight verify a user's CPF number and identity.
+
+This method takes in the BrazilCPFLightRequest{} struct as a parameter.
+
+MetaMap connects with the Brazilian Internal Revenue Service (Ministério da Fazenda / Treasury) to validate that the Registration of Individuals (Cadastro de Pessoas Físicas / CPF) number present on the national ID card or driver license exists and its owner matches the data obtained from it.
+*/
+func (c *Client) BrazilCPFLight(req BrazilCPFLightRequest) (*BrazilCPFLightResponse, error) {
+	url := "govchecks/v1/br/cpf-light"
+	method := MethodPOST
+	var response BrazilCPFLightResponse
+	c.IsBasic = false
+	if err := c.newRequest(method, url, req, response); err != nil {
+		return &BrazilCPFLightResponse{}, err
 	}
 
 	return &response, nil

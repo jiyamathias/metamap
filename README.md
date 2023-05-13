@@ -423,6 +423,58 @@ func main() {
 }
 ```
 
+- ## BrazilCPFLight
+BrazilCPFLight verify a user's CPF number and identity.
+
+This method takes in the BrazilCPFLightRequest{} struct as a parameter.
+### Use this object payload to implement the BrazilCPFLight() method
+```go
+type BrazilCPFLightRequest struct {
+	Cpf         string `json:"cpf"`
+	CallbackUrl string `json:"callbackUrl"`
+}
+
+```
+```go
+package main
+
+import (
+	"fmt"
+	metamap "github.com/iqquee/metamap-go"
+)
+
+func main() {
+	clientId := "your metamap client id"
+	clientSecret := "your metamap client secrete"
+	httpClient := http.Client{}
+	client := metamap.New(&httpClient, clientId, clientSecret)
+
+	req := metamap.BrazilCPFLightRequest{
+		Cpf: "01234567",
+		CallbackUrl: "https://webhook.site/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+	}
+	resp, err := client.BrazilCPFLight(req)
+	if err != nil {
+		fmt.Println("This is the error: ", err)
+		return
+	}
+
+	fmt.Println("This is the response: ", resp)
+}
+```
+
+{
+  "status": 200,
+  "id": "brazilian-cpf-light-validation",
+  "error": null,
+  "data": {
+    "fullName": "<JOHN DOE>",
+    "dateOfBirth": "1900-01-01",
+    "cpf": "01234567890",
+    "taxStatus": "Regular"
+  },
+  "timestamp": "2020-11-17T18:36:57.198Z"
+}
 
 # GovChecks: Nigeria
 - ## NigeriaVirtualNIN
