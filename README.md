@@ -69,7 +69,7 @@ func main() {
 		DateOfBirth:      "your data of birth e.g 2023-05-10",
 		Gender:       "M", // for male
 		DateOfIssue: "your data of issue",
-		CallbackUrl:    "your callback url",
+		CallbackUrl: "https://webhook.site/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
 	}
 	resp, err := client.ArgentinaDNI(req)
 	if err != nil {
@@ -122,7 +122,7 @@ func main() {
 		DateOfBirth:      "your data of birth e.g 2023-05-10",
 		Gender:       "M", // for male
 		DateOfIssue: "your data of issue",
-		CallbackUrl:    "your callback url",
+		CallbackUrl: "https://webhook.site/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
 	}
 	resp, err := client.ArgentinaRENAPER(req)
 	if err != nil {
@@ -176,7 +176,7 @@ func main() {
 		DateOfBirth:      "your data of birth e.g 2023-05-10",
 		Gender:       "M", // for male
 		IssueDate: "your data of issue",
-		CallbackUrl:    "your callback url",
+		CallbackUrl: "https://webhook.site/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
 	}
 	resp, err := client.ArgentinaRENAPERPremium(req)
 	if err != nil {
@@ -223,7 +223,7 @@ func main() {
 	req := metamap.ArgentinaRENAPERExtendedRequest{
 		DocumentNumber: "your document number",
 		FullName:      "your full name",
-		CallbackUrl:    "your callback url",
+		CallbackUrl: "https://webhook.site/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
 	}
 	resp, err := client.ArgentinaRENAPERExtended(req)
 	if err != nil {
@@ -265,7 +265,7 @@ func main() {
 
 	req := metamap.BrazilCNPJValidationRequest{
 		Cnpj: "your cnpj number",
-		CallbackUrl:    "your callback url",
+		CallbackUrl: "https://webhook.site/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
 	}
 	resp, err := client.BrazilCNPJValidation(req)
 	if err != nil {
@@ -305,9 +305,64 @@ func main() {
 
 	req := metamap.BrazilCNPJExtendedValidationRequest{
 		Cnpj: "your cnpj number",
-		CallbackUrl:    "your callback url",
+		CallbackUrl: "https://webhook.site/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
 	}
 	resp, err := client.BrazilCNPJExtendedValidation(req)
+	if err != nil {
+		fmt.Println("This is the error: ", err)
+		return
+	}
+
+	fmt.Println("This is the response: ", resp)
+}
+```
+
+- ## BrazilCPFValidation
+BrazilCPFValidation verify a user's CPF number and identity.
+
+This method takes in the BrazilCPFValidationRequest{} struct as a parameter.
+### Use this object payload to implement the BrazilCPFValidation() method
+```go
+type BrazilCPFValidationRequest struct {
+	CpfNumber   string `json:"cpfNumber"`
+	FullName    string `json:"fullName"`
+	DateOfBirth string `json:"dateOfBirth"`
+	MothersName string `json:"mothersName"`
+	FathersName string `json:"fathersName"`
+	// nationalId or driving-license
+	DocumentType   string `json:"documentType"`
+	DocumentNumber string `json:"documentNumber"`
+	// M for male, F for female. Returns null if there is no gender data.
+	Gender      string `json:"gender"`
+	CallbackUrl string `json:"callbackUrl"`
+}
+
+```
+```go
+package main
+
+import (
+	"fmt"
+	metamap "github.com/iqquee/metamap-go"
+)
+
+func main() {
+	clientId := "your metamap client id"
+	clientSecret := "your metamap client secrete"
+	httpClient := http.Client{}
+	client := metamap.New(&httpClient, clientId, clientSecret)
+
+	req := metamap.BrazilCPFValidationRequest{
+		CpfNumber: "012.345.678-90",
+		FullName: "JOHN DOE",
+		DateOfBirth: "1900-01-01",
+		MothersName: "JANE DOE",
+		FathersName: "JAMES DOE",
+		DocumentType: "national-id",
+		DocumentNumber: "0123456789",
+		CallbackUrl: "https://webhook.site/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+	}
+	resp, err := client.BrazilCPFValidation(req)
 	if err != nil {
 		fmt.Println("This is the error: ", err)
 		return
@@ -357,7 +412,7 @@ func main() {
 		LastName:    "Doe",
 		DateOfBirth: "2023-05-01",
 		Metadata:    extraData,
-		CallbackUrl: "your callback url",
+		CallbackUrl: "https://webhook.site/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
 	}
 	resp, err := client.NigeriaVirtualNIN(req)
 	if err != nil {
@@ -401,7 +456,7 @@ func main() {
 		FirstName:      "John",
 		LastName:       "Doe",
 		DateOfBirth:    "2023-05-01",
-		CallbackUrl:    "your callback url",
+		CallbackUrl: "https://webhook.site/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
 	}
 	resp, err := client.NigeriaVotingIDNumber(req)
 	if err != nil {
@@ -443,7 +498,7 @@ func main() {
 		DocumentNumber: "your drivers licence",
 		FirstName:      "John",
 		LastName:       "Doe",
-		CallbackUrl:    "your callback url",
+		CallbackUrl: "https://webhook.site/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
 	}
 	resp, err := client.NigeriaDriversLicence(req)
 	if err != nil {
@@ -482,7 +537,7 @@ func main() {
 
 	req := metamap.NigeriaCACRequest{
 		RegistrationNumber: "your registration number",
-		CallbackUrl:    "your callback url",
+		CallbackUrl: "https://webhook.site/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
 	}
 	resp, err := client.NigeriaCAC(req)
 	if err != nil {
@@ -520,7 +575,7 @@ func main() {
 
 	req := metamap.NigeriaTaxIdentificationNumberRequest{
 		TaxNumber: "your tax number",
-		CallbackUrl:    "your callback url",
+		CallbackUrl: "https://webhook.site/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
 	}
 	resp, err := client.NigeriaTaxIdentificationNumber(req)
 	if err != nil {
@@ -558,7 +613,7 @@ func main() {
 
 	req := metamap.NigeriaCACAffiliatesRequest{
 		RegistrationNumber: "your registration number",
-		CallbackUrl:    "your callback url",
+		CallbackUrl: "https://webhook.site/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
 	}
 	resp, err := client.NigeriaCACAffiliates(req)
 	if err != nil {
@@ -600,7 +655,7 @@ func main() {
 		DocumentNumber: "your BVN number",
 		FirstName: "John",
 		LastName: "Doe",
-		CallbackUrl:    "your callback url",
+		CallbackUrl: "https://webhook.site/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
 	}
 	resp, err := client.NigeriaBVN(req)
 	if err != nil {

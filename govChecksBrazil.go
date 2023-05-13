@@ -122,6 +122,37 @@ type (
 			} `json:"shareholdersInfo"`
 		} `json:"data"`
 	}
+
+	// BrazilCPFValidationResponse
+	BrazilCPFValidationRequest struct {
+		CpfNumber   string `json:"cpfNumber"`
+		FullName    string `json:"fullName"`
+		DateOfBirth string `json:"dateOfBirth"`
+		MothersName string `json:"mothersName"`
+		FathersName string `json:"fathersName"`
+		// nationalId or driving-license
+		DocumentType   string `json:"documentType"`
+		DocumentNumber string `json:"documentNumber"`
+		// M for male, F for female. Returns null if there is no gender data.
+		Gender      string `json:"gender"`
+		CallbackUrl string `json:"callbackUrl"`
+	}
+
+	BrazilCPFValidationResponse struct {
+		Error interface{} `json:"error"`
+		Data  struct {
+			CpfNumberMatched      bool   `json:"cpfNumberMatched"`
+			Gender                string `json:"gender"`
+			Nationality           string `json:"nationality"`
+			TaxStatus             string `json:"taxStatus"`
+			FullNameSimilarity    int    `json:"fullNameSimilarity"`
+			DateOfBirthMatched    bool   `json:"dateOfBirthMatched"`
+			DocumentType          string `json:"documentType"`
+			DocumentNumberMatched bool   `json:"documentNumberMatched"`
+			MothersNameSimilarity int    `json:"mothersNameSimilarity"`
+			FathersNameSimilarity int    `json:"fathersNameSimilarity"`
+		} `json:"data"`
+	}
 )
 
 /*
@@ -159,6 +190,25 @@ func (c *Client) BrazilCNPJExtendedValidation(req BrazilCNPJExtendedValidationRe
 	c.IsBasic = false
 	if err := c.newRequest(method, url, req, response); err != nil {
 		return &BrazilCNPJExtendedValidationResponse{}, err
+	}
+
+	return &response, nil
+}
+
+/*
+BrazilCPFValidation verify a user's CPF number and identity.
+
+This method takes in the BrazilCPFValidationRequest{} struct as a parameter.
+
+MetaMap connects with the Brazilian Internal Revenue Service (Ministério da Fazenda / Treasury) to validate that the Registration of Individuals (Cadastro de Pessoas Físicas / CPF) number present in the ID card exists and its owner matches the data obtained from it.
+*/
+func (c *Client) BrazilCPFValidation(req BrazilCPFValidationRequest) (*BrazilCPFValidationResponse, error) {
+	url := "govchecks/v1/br/cnpj-extended"
+	method := MethodPOST
+	var response BrazilCPFValidationResponse
+	c.IsBasic = false
+	if err := c.newRequest(method, url, req, response); err != nil {
+		return &BrazilCPFValidationResponse{}, err
 	}
 
 	return &response, nil
