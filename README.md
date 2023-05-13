@@ -277,6 +277,46 @@ func main() {
 }
 ```
 
+- ## BrazilCNPJExtendedValidation
+BrazilCNPJExtendedValidation validate a business's National Registry of Legal Entities number.
+
+This method takes in the BrazilCNPJExtendedValidationRequest{} struct as a parameter.
+### Use this object payload to implement the BrazilCNPJExtendedValidation() method
+```go
+type BrazilCNPJExtendedValidationRequest struct {
+	Cnpj        string `json:"cnpj"`
+	CallbackUrl string `json:"callbackUrl"`
+}
+
+```
+```go
+package main
+
+import (
+	"fmt"
+	metamap "github.com/iqquee/metamap-go"
+)
+
+func main() {
+	clientId := "your metamap client id"
+	clientSecret := "your metamap client secrete"
+	httpClient := http.Client{}
+	client := metamap.New(&httpClient, clientId, clientSecret)
+
+	req := metamap.BrazilCNPJExtendedValidationRequest{
+		Cnpj: "your cnpj number",
+		CallbackUrl:    "your callback url",
+	}
+	resp, err := client.BrazilCNPJExtendedValidation(req)
+	if err != nil {
+		fmt.Println("This is the error: ", err)
+		return
+	}
+
+	fmt.Println("This is the response: ", resp)
+}
+```
+
 # GovChecks: Nigeria
 - ## NigeriaVirtualNIN
 NigeriaVirtualNIN verifies NIN(National Identification Number).
