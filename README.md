@@ -11,11 +11,11 @@ A Golang SDK for interacting with the metamap API
 To install this package, you need to install [Go](https://golang.org/) and set your Go workspace first.
 1. You can use the below Go command to install metamap-go
 ```sh
-$ go get -u github.com/iqquee/metamap-go
+$ go get -u github.com/iqquee/metamap
 ```
 2. Import it in your code:
 ```sh
-import "github.com/iqquee/metamap-go"
+import "github.com/iqquee/metamap"
 ```
 ## Note : All methods in this package returns two (2) things:
 - [x] An object of the response
@@ -55,7 +55,7 @@ package main
 
 import (
 	"fmt"
-	metamap "github.com/iqquee/metamap-go"
+	metamap "github.com/iqquee/metamap"
 )
 
 func main() {
@@ -108,7 +108,7 @@ package main
 
 import (
 	"fmt"
-	metamap "github.com/iqquee/metamap-go"
+	metamap "github.com/iqquee/metamap"
 )
 
 func main() {
@@ -162,7 +162,7 @@ package main
 
 import (
 	"fmt"
-	metamap "github.com/iqquee/metamap-go"
+	metamap "github.com/iqquee/metamap"
 )
 
 func main() {
@@ -211,7 +211,7 @@ package main
 
 import (
 	"fmt"
-	metamap "github.com/iqquee/metamap-go"
+	metamap "github.com/iqquee/metamap"
 )
 
 func main() {
@@ -254,7 +254,7 @@ package main
 
 import (
 	"fmt"
-	metamap "github.com/iqquee/metamap-go"
+	metamap "github.com/iqquee/metamap"
 )
 
 func main() {
@@ -294,7 +294,7 @@ package main
 
 import (
 	"fmt"
-	metamap "github.com/iqquee/metamap-go"
+	metamap "github.com/iqquee/metamap"
 )
 
 func main() {
@@ -343,7 +343,7 @@ package main
 
 import (
 	"fmt"
-	metamap "github.com/iqquee/metamap-go"
+	metamap "github.com/iqquee/metamap"
 )
 
 func main() {
@@ -396,7 +396,7 @@ package main
 
 import (
 	"fmt"
-	metamap "github.com/iqquee/metamap-go"
+	metamap "github.com/iqquee/metamap"
 )
 
 func main() {
@@ -440,7 +440,7 @@ package main
 
 import (
 	"fmt"
-	metamap "github.com/iqquee/metamap-go"
+	metamap "github.com/iqquee/metamap"
 )
 
 func main() {
@@ -462,19 +462,6 @@ func main() {
 	fmt.Println("This is the response: ", resp)
 }
 ```
-
-{
-  "status": 200,
-  "id": "brazilian-cpf-light-validation",
-  "error": null,
-  "data": {
-    "fullName": "<JOHN DOE>",
-    "dateOfBirth": "1900-01-01",
-    "cpf": "01234567890",
-    "taxStatus": "Regular"
-  },
-  "timestamp": "2020-11-17T18:36:57.198Z"
-}
 
 # GovChecks: Nigeria
 - ## NigeriaVirtualNIN
@@ -498,7 +485,7 @@ package main
 
 import (
 	"fmt"
-	metamap "github.com/iqquee/metamap-go"
+	metamap "github.com/iqquee/metamap"
 )
 
 func main() {
@@ -546,7 +533,7 @@ package main
 
 import (
 	"fmt"
-	metamap "github.com/iqquee/metamap-go"
+	metamap "github.com/iqquee/metamap"
 )
 
 func main() {
@@ -589,7 +576,7 @@ package main
 
 import (
 	"fmt"
-	metamap "github.com/iqquee/metamap-go"
+	metamap "github.com/iqquee/metamap"
 )
 
 func main() {
@@ -630,7 +617,7 @@ package main
 
 import (
 	"fmt"
-	metamap "github.com/iqquee/metamap-go"
+	metamap "github.com/iqquee/metamap"
 )
 
 func main() {
@@ -668,7 +655,7 @@ package main
 
 import (
 	"fmt"
-	metamap "github.com/iqquee/metamap-go"
+	metamap "github.com/iqquee/metamap"
 )
 
 func main() {
@@ -706,7 +693,7 @@ package main
 
 import (
 	"fmt"
-	metamap "github.com/iqquee/metamap-go"
+	metamap "github.com/iqquee/metamap"
 )
 
 func main() {
@@ -746,7 +733,7 @@ package main
 
 import (
 	"fmt"
-	metamap "github.com/iqquee/metamap-go"
+	metamap "github.com/iqquee/metamap"
 )
 
 func main() {
