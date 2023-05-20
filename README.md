@@ -1,4 +1,4 @@
-# metamap-go
+# metamap
 A Golang SDK for interacting with the metamap API
 
 # Please ensure to create issues in this repo if :
@@ -9,7 +9,7 @@ A Golang SDK for interacting with the metamap API
 
 # Installation
 To install this package, you need to install [Go](https://golang.org/) and set your Go workspace first.
-1. You can use the below Go command to install metamap-go
+1. You can use the below Go command to install metamap
 ```sh
 $ go get -u github.com/iqquee/metamap
 ```
@@ -454,6 +454,54 @@ func main() {
 		CallbackUrl: "https://webhook.site/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
 	}
 	resp, err := client.BrazilCPFLight(req)
+	if err != nil {
+		fmt.Println("This is the error: ", err)
+		return
+	}
+
+	fmt.Println("This is the response: ", resp)
+}
+```
+
+# GovChecks: Chile
+
+- ## ChileRegistroCivil
+ChileRegistroCivil verify that a user's RUN number against the Chilean Civil Registry database.
+
+This method takes in the ChileRegistroCivilRequest{} struct as a parameter.
+### Use this object payload to implement the ChileRegistroCivil() method
+```go
+type ChileRegistroCivilRequest struct {
+		RunNumber    string `json:"runNumber"`
+		DocumentType string `json:"documentType"`
+		Nationality    string `json:"nationality"`
+		DocumentNumber string `json:"documentNumber"`
+		CallbackUrl    string `json:"callbackUrl"`
+}
+
+```
+```go
+package main
+
+import (
+	"fmt"
+	metamap "github.com/iqquee/metamap"
+)
+
+func main() {
+	clientId := "your metamap client id"
+	clientSecret := "your metamap client secrete"
+	httpClient := http.Client{}
+	client := metamap.New(&httpClient, clientId, clientSecret)
+
+	req := metamap.ChileRegistroCivilRequest{
+		RunNumber: "run number",
+		DocumentType : "document type",
+		Nationality: "CHL",
+		DocumentNumber: "document number",
+		CallbackUrl: "https://webhook.site/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+	}
+	resp, err := client.ChileRegistroCivil(req)
 	if err != nil {
 		fmt.Println("This is the error: ", err)
 		return
