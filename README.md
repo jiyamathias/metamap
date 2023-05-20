@@ -472,11 +472,11 @@ This method takes in the ChileRegistroCivilRequest{} struct as a parameter.
 ### Use this object payload to implement the ChileRegistroCivil() method
 ```go
 type ChileRegistroCivilRequest struct {
-		RunNumber    string `json:"runNumber"`
-		DocumentType string `json:"documentType"`
-		Nationality    string `json:"nationality"`
-		DocumentNumber string `json:"documentNumber"`
-		CallbackUrl    string `json:"callbackUrl"`
+	RunNumber    string `json:"runNumber"`
+	DocumentType string `json:"documentType"`
+	Nationality    string `json:"nationality"`
+	DocumentNumber string `json:"documentNumber"`
+	CallbackUrl    string `json:"callbackUrl"`
 }
 
 ```
@@ -510,6 +510,49 @@ func main() {
 	fmt.Println("This is the response: ", resp)
 }
 ```
+
+- ## ChileCriminalCertificate
+ChileCriminalCertificate verify that a user's background certificate is valid.
+
+This method takes in the ChileCriminalCertificateRequest{} struct as a parameter.
+### Use this object payload to implement the ChileCriminalCertificate() method
+```go
+type ChileCriminalCertificateRequest struct {
+	SheetNumber      string `json:"sheetNumber"`
+	VerificationCode string `json:"verificationCode"`
+	CallbackUrl      string `json:"callbackUrl"`
+}
+
+```
+```go
+package main
+
+import (
+	"fmt"
+	metamap "github.com/iqquee/metamap"
+)
+
+func main() {
+	clientId := "your metamap client id"
+	clientSecret := "your metamap client secrete"
+	httpClient := http.Client{}
+	client := metamap.New(&httpClient, clientId, clientSecret)
+
+	req := metamap.ChileCriminalCertificateRequest{
+		SheetNumber: "012345678901",
+		VerificationCode: "1ab23cd45e6f",
+		CallbackUrl: "https://webhook.site/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+	}
+	resp, err := client.ChileCriminalCertificate(req)
+	if err != nil {
+		fmt.Println("This is the error: ", err)
+		return
+	}
+
+	fmt.Println("This is the response: ", resp)
+}
+```
+
 
 # GovChecks: Nigeria
 - ## NigeriaVirtualNIN

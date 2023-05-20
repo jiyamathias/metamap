@@ -18,6 +18,20 @@ type (
 			DocumentType string `json:"documentType"`
 		} `json:"data"`
 	}
+
+	// ChileCriminalCertificate
+	ChileCriminalCertificateRequest struct {
+		SheetNumber      string `json:"sheetNumber"`
+		VerificationCode string `json:"verificationCode"`
+		CallbackUrl      string `json:"callbackUrl"`
+	}
+
+	ChileCriminalCertificateResponse struct {
+		Error interface{} `json:"error"`
+		Data  struct {
+			FileName string `json:"fileName"`
+		} `json:"data"`
+	}
 )
 
 /*
@@ -36,6 +50,25 @@ func (c *Client) ChileRegistroCivil(req ChileRegistroCivilRequest) (*ChileRegist
 	c.IsBasic = false
 	if err := c.newRequest(method, url, req, response); err != nil {
 		return &ChileRegistroCivilResponse{}, err
+	}
+
+	return &response, nil
+}
+
+/*
+ChileCriminalCertificate verify that a user's background certificate is valid.
+
+This method takes in the ChileCriminalCertificateRequest{} struct as a parameter.
+
+MetaMap connects with the Chilean Civil Registry (Servicio de Registro Civil e Identificación / SRCEI) to validate that the user's criminal certificate is valid.
+*/
+func (c *Client) ChileCriminalCertificate(req ChileCriminalCertificateRequest) (*ChileCriminalCertificateResponse, error) {
+	url := "govchecks/v1/cl/criminalCertificate"
+	method := MethodPOST
+	var response ChileCriminalCertificateResponse
+	c.IsBasic = false
+	if err := c.newRequest(method, url, req, response); err != nil {
+		return &ChileCriminalCertificateResponse{}, err
 	}
 
 	return &response, nil
