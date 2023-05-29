@@ -37,17 +37,17 @@ This method takes in the ArgentinaDNIRequest{} struct as a parameter.
 ### Use this object payload to implement the ArgentinaDNI() method
 ```go
 type ArgentinaDNIRequest struct {
-		// Document number from either a National ID or a driver license.
-		DocumentNumber string `json:"documentNumber"`
-		DateOfBirth    string `json:"dateOfBirth"`
-		// M for male, F for female.
-		Gender string `json:"gender"`
-		// Document issue date.
-		DateOfIssue string                 `json:"dateOfIssue"`
-		CallbackUrl string                 `json:"callbackUrl"`
-		// Use Metadata to add internal references for your outputs/webhooks.
-		Metadata    map[string]interface{} `json:"metadata"`
-	}
+	// Document number from either a National ID or a driver license.
+	DocumentNumber string `json:"documentNumber"`
+	DateOfBirth    string `json:"dateOfBirth"`
+	// M for male, F for female.
+	Gender string `json:"gender"`
+	// Document issue date.
+	DateOfIssue string                 `json:"dateOfIssue"`
+	CallbackUrl string                 `json:"callbackUrl"`
+	// Use Metadata to add internal references for your outputs/webhooks.
+	Metadata    map[string]interface{} `json:"metadata"`
+}
 
 ```
 ```go
@@ -90,17 +90,17 @@ This method takes in the ArgentinaRENAPERRequest{} struct as a parameter.
 ### Use this object payload to implement the ArgentinaRENAPER() method
 ```go
 type ArgentinaRENAPERRequest struct {
-		// Document number from either a National ID or a driver license.
-		DocumentNumber string `json:"documentNumber"`
-		DateOfBirth    string `json:"dateOfBirth"`
-		// M for male, F for female.
-		Gender string `json:"gender"`
-		// Document issue date.
-		DateOfIssue string                 `json:"dateOfIssue"`
-		CallbackUrl string                 `json:"callbackUrl"`
-		// Use Metadata to add internal references for your outputs/webhooks.
-		Metadata    map[string]interface{} `json:"metadata"`
-	}
+	// Document number from either a National ID or a driver license.
+	DocumentNumber string `json:"documentNumber"`
+	DateOfBirth    string `json:"dateOfBirth"`
+	// M for male, F for female.
+	Gender string `json:"gender"`
+	// Document issue date.
+	DateOfIssue string                 `json:"dateOfIssue"`
+	CallbackUrl string                 `json:"callbackUrl"`
+	// Use Metadata to add internal references for your outputs/webhooks.
+	Metadata    map[string]interface{} `json:"metadata"`
+}
 
 ```
 ```go
@@ -143,18 +143,18 @@ This method takes in the ArgentinaRENAPERPremiumRequest{} struct as a parameter.
 ### Use this object payload to implement the ArgentinaRENAPERPremium() method
 ```go
 type ArgentinaRENAPERPremiumRequest struct {
-		// Document number from either a National ID or a driver license.
-		DocumentNumber string `json:"documentNumber"`
-		// E.g "2023-05-10"
-		DateOfBirth string `json:"dateOfBirth"`
-		// Date of document issue E.g "2023-05-10"
-		IssueDate string `json:"issueDate"`
-		// M for male, F for female.
-		Gender      string `json:"gender"`
-		CallbackUrl string `json:"callbackUrl"`
-		// Use Metadata to add internal references for your outputs/webhooks.
-		Metadata map[string]interface{} `json:"metadata"`
-	}
+	// Document number from either a National ID or a driver license.
+	DocumentNumber string `json:"documentNumber"`
+	// E.g "2023-05-10"
+	DateOfBirth string `json:"dateOfBirth"`
+	// Date of document issue E.g "2023-05-10"
+	IssueDate string `json:"issueDate"`
+	// M for male, F for female.
+	Gender      string `json:"gender"`
+	CallbackUrl string `json:"callbackUrl"`
+	// Use Metadata to add internal references for your outputs/webhooks.
+	Metadata map[string]interface{} `json:"metadata"`
+}
 
 ```
 ```go
@@ -553,6 +553,51 @@ func main() {
 }
 ```
 
+# GovChecks: Colombia
+
+- ## ColombiaMigrationInstitute
+ColombiaMigrationInstitute verify that a user has a valid immigration status in Colombia.
+
+This method takes in the ColombiaMigrationInstituteRequest{} struct as a parameter.
+
+NOTE:  DateOfIssue fieid should be in this format 2022-01-01.
+### Use this object payload to implement the ColombiaMigrationInstitute() method
+```go
+type ColombiaMigrationInstituteRequest struct {
+	DocumentNumber string `json:"documentNumber"`
+	DateOfIssue    string `json:"dateOfIssue"`
+	CallbackUrl    string `json:"callbackUrl"`
+}
+
+```
+```go
+package main
+
+import (
+	"fmt"
+	metamap "github.com/iqquee/metamap"
+)
+
+func main() {
+	clientId := "your metamap client id"
+	clientSecret := "your metamap client secrete"
+	httpClient := http.Client{}
+	client := metamap.New(&httpClient, clientId, clientSecret)
+
+	req := metamap.ColombiaMigrationInstituteRequest{
+		DocumentNumber: "document number",
+		DateOfIssue: "2022-01-01",
+		CallbackUrl: "https://webhook.site/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+	}
+	resp, err := client.ColombiaMigrationInstitute(req)
+	if err != nil {
+		fmt.Println("This is the error: ", err)
+		return
+	}
+
+	fmt.Println("This is the response: ", resp)
+}
+```
 
 # GovChecks: Nigeria
 - ## NigeriaVirtualNIN
@@ -562,13 +607,13 @@ NOTE: The MetaData field in the metamap.NigeriaNINRequest{} struct is an optiona
 ### Use this object payload to implement the NigeriaVirtualNIN() method
 ```go
 type NigeriaNINRequest struct {
-		VNIN        string `json:"vNIN"`
-		FirstName   string `json:"firstName"`
-		LastName    string `json:"lastName"`
-		DateOfBirth string `json:"dateOfBirth"`
-		Metadata map[string]interface{} `json:"metadata"`
-		//CallbackUrl is a required parameter that must be passed in
-		CallbackUrl string `json:"callbackUrl"`
+	VNIN        string `json:"vNIN"`
+	FirstName   string `json:"firstName"`
+	LastName    string `json:"lastName"`
+	DateOfBirth string `json:"dateOfBirth"`
+	Metadata map[string]interface{} `json:"metadata"`
+	//CallbackUrl is a required parameter that must be passed in
+	CallbackUrl string `json:"callbackUrl"`
 }
 ```
 ```go
@@ -611,11 +656,11 @@ NigeriaVotingIDNumber verifies NIN(National Identification Number).
 ### Use this object payload to implement the NigeriaVirtualNIN() method
 ```go
 type NigeriaVotingIDNumberRequest struct {
-		DocumentNumber string `json:"documentNumber"`
-		FirstName      string `json:"firstName"`
-		LastName       string `json:"lastName"`
-		DateOfBirth    string `json:"dateOfBirth"`
-		CallbackUrl    string `json:"callbackUrl"`
+	DocumentNumber string `json:"documentNumber"`
+	FirstName      string `json:"firstName"`
+	LastName       string `json:"lastName"`
+	DateOfBirth    string `json:"dateOfBirth"`
+	CallbackUrl    string `json:"callbackUrl"`
 }
 
 ```
@@ -655,10 +700,10 @@ NigeriaDriversLicence verifies drivers licence.
 ### Use this object payload to implement the NigeriaDriversLicence() method
 ```go
 type NigeriaDriversLicenceRequest struct {
-		DocumentNumber string `json:"documentNumber"`
-		FirstName      string `json:"firstName"`
-		LastName       string `json:"lastName"`
-		CallbackUrl    string `json:"callbackUrl"`
+	DocumentNumber string `json:"documentNumber"`
+	FirstName      string `json:"firstName"`
+	LastName       string `json:"lastName"`
+	CallbackUrl    string `json:"callbackUrl"`
 }
 
 ```
