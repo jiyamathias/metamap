@@ -764,6 +764,52 @@ func main() {
 }
 ```
 
+- ## ColombiaPPT
+ColombiaPPT verify the validity of the Colombian PPT (Permiso por protección temporal = Temporary Protection Permit).
+
+This method takes in the ColombiaPPTRequest{} struct as a parameter.
+
+NOTE: Date of Birth format is DD-MM-YYYY
+### Use this object payload to implement the ColombiaPPT() method
+```go
+type ColombiaPPTRequest struct {
+	Rumv        string `json:"rumv"`     
+	Dni         string `json:"dni"`        
+	DateOfBirth string `json:"dateOfBirth"`
+	CallbackUrl string `json:"callbackUrl"
+}
+
+```
+```go
+package main
+
+import (
+	"fmt"
+	metamap "github.com/iqquee/metamap"
+)
+
+func main() {
+	clientId := "your metamap client id"
+	clientSecret := "your metamap client secrete"
+	httpClient := hhttp.DefaultClient
+	client := metamap.New(&httpClient, clientId, clientSecret)
+
+	req := metamap.ColombiaPPTRequest{
+		Rumv: "your rumv number",
+		Dni: "your dni number",
+		DateOfBirth: "01-03-2038"
+		CallbackUrl: "https://webhook.site/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+	}
+	resp, err := client.ColombiaPPT(req)
+	if err != nil {
+		fmt.Println("This is the error: ", err)
+		return
+	}
+
+	fmt.Println("This is the response: ", resp)
+}
+```
+
 # GovChecks: Nigeria
 - ## NigeriaVirtualNIN
 NigeriaVirtualNIN verifies NIN(National Identification Number).

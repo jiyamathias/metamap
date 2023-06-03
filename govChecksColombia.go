@@ -136,6 +136,25 @@ type (
 		} `json:"data"`
 		Timestamp string `json:"timestamp"`
 	}
+
+	// ColombiaPPT
+	ColombiaPPTRequest struct {
+		Rumv        string `json:"rumv"`        // User's RUMV number
+		Dni         string `json:"dni"`         // User's DNI number
+		DateOfBirth string `json:"dateOfBirth"` // Date of Birth format is DD-MM-YYYY
+		CallbackUrl string `json:"callbackUrl"` // Callback URL to receive request results.
+	}
+	ColombiaPPTResponse struct {
+		Error interface{} `json:"error"`
+		Data  struct {
+			FullName     string `json:"fullName"`
+			Phone        string `json:"phone"`
+			Email        string `json:"email"`
+			DocumentType string `json:"documentType"`
+			Dni          string `json:"dni"`
+			Status       string `json:"status"`
+		} `json:"data"`
+	}
 )
 
 /*
@@ -232,6 +251,27 @@ func (c *Client) ColombiaRUES(req ColombiaRUESRequest) (*ColombiaRUESResponse, e
 	c.IsBasic = false
 	if err := c.newRequest(method, url, req, response); err != nil {
 		return &ColombiaRUESResponse{}, err
+	}
+
+	return &response, nil
+}
+
+/*
+ColombiaPPT verify the validity of the Colombian PPT (Permiso por protección temporal = Temporary Protection Permit).
+
+This method takes in the ColombiaPPTRequest{} struct as a parameter.
+
+NOTE: Date of Birth format is DD-MM-YYYY
+
+MetaMap searches through the Colombian PPT registry to validate the Permiso por protección temporal document against the RUMV Number, the Identity Document Number, and the date of birth.
+*/
+func (c *Client) ColombiaPPT(req ColombiaPPTRequest) (*ColombiaPPTResponse, error) {
+	url := "govchecks/v1/co/ppt"
+	method := MethodPOST
+	var response ColombiaPPTResponse
+	c.IsBasic = false
+	if err := c.newRequest(method, url, req, response); err != nil {
+		return &ColombiaPPTResponse{}, err
 	}
 
 	return &response, nil
