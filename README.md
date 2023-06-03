@@ -724,6 +724,46 @@ func main() {
 }
 ```
 
+- ## ColombiaRUES
+ColombiaRUES check a business's national tax ID against Colombian Single Business and Social Registry.
+
+This method takes in the ColombiaRUESRequest{} struct as a parameter.
+### Use this object payload to implement the ColombiaRUES() method
+```go
+type ColombiaRUESRequest struct {
+	Nit         string `json:"nit"`
+	CallbackUrl string `json:"callbackUrl"`
+}
+
+```
+```go
+package main
+
+import (
+	"fmt"
+	metamap "github.com/iqquee/metamap"
+)
+
+func main() {
+	clientId := "your metamap client id"
+	clientSecret := "your metamap client secrete"
+	httpClient := hhttp.DefaultClient
+	client := metamap.New(&httpClient, clientId, clientSecret)
+
+	req := metamap.ColombiaRUESRequest{
+		Nit: "000000000",
+		CallbackUrl: "https://webhook.site/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+	}
+	resp, err := client.ColombiaRUES(req)
+	if err != nil {
+		fmt.Println("This is the error: ", err)
+		return
+	}
+
+	fmt.Println("This is the response: ", resp)
+}
+```
+
 # GovChecks: Nigeria
 - ## NigeriaVirtualNIN
 NigeriaVirtualNIN verifies NIN(National Identification Number).

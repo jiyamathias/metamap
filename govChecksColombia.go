@@ -98,6 +98,44 @@ type (
 		} `json:"data"`
 		Timestamp string `json:"timestamp"`
 	}
+
+	// ColombiaRUES
+	ColombiaRUESRequest struct {
+		Nit         string `json:"nit"`
+		CallbackUrl string `json:"callbackUrl"`
+	}
+	ColombiaRUESResponse struct {
+		Status int         `json:"status"`
+		Error  interface{} `json:"error"`
+		Data   struct {
+			CompanyName               string      `json:"companyName"`
+			Nit                       string      `json:"nit"`
+			ShortName                 interface{} `json:"shortName"`
+			Municipality              string      `json:"municipality"`
+			Category                  string      `json:"category"`
+			Status                    string      `json:"status"`
+			EnrollmentNumber          string      `json:"enrollmentNumber"`
+			LastRenewal               string      `json:"lastRenewal"`
+			RenewalDate               string      `json:"renewalDate"`
+			EnrollmentDate            string      `json:"enrollmentDate"`
+			ExpirationDate            string      `json:"expirationDate"`
+			EnrollmentStatus          string      `json:"enrollmentStatus"`
+			AnnullmentReason          string      `json:"annullmentReason"`
+			CompanyType               string      `json:"companyType"`
+			OrganizationType          string      `json:"organizationType"`
+			EnrollmentCategory        string      `json:"enrollmentCategory"`
+			LastUpdate                string      `json:"lastUpdate"`
+			EconomicActivities        []string    `json:"economicActivities"`
+			MainLegalRepresentative   string      `json:"mainLegalRepresentative"`
+			OtherLegalRepresentatives []string    `json:"otherLegalRepresentatives"`
+			Entities                  []struct {
+				EntityName       string `json:"entityName"`
+				EnrollmentNumber string `json:"enrollmentNumber"`
+				EnrollmentDate   string `json:"enrollmentDate"`
+			} `json:"entities"`
+		} `json:"data"`
+		Timestamp string `json:"timestamp"`
+	}
 )
 
 /*
@@ -175,6 +213,25 @@ func (c *Client) ColombiaUnifiedLegalSearch(req ColombiaUnifiedLegalSearchReques
 	c.IsBasic = false
 	if err := c.newRequest(method, url, req, response); err != nil {
 		return &ColombiaUnifiedLegalSearchResponse{}, err
+	}
+
+	return &response, nil
+}
+
+/*
+ColombiaRUES check a business's national tax ID against Colombian Single Business and Social Registry.
+
+This method takes in the ColombiaRUESRequest{} struct as a parameter.
+
+MetaMap searches through the Colombian Single Business and Social Registry (Registro Unico Empresarial y Social, RUES) to validate a business's national tax ID (Número de Identificación Tributaria, NIT).
+*/
+func (c *Client) ColombiaRUES(req ColombiaRUESRequest) (*ColombiaRUESResponse, error) {
+	url := "govchecks/v1/co/rues"
+	method := MethodPOST
+	var response ColombiaRUESResponse
+	c.IsBasic = false
+	if err := c.newRequest(method, url, req, response); err != nil {
+		return &ColombiaRUESResponse{}, err
 	}
 
 	return &response, nil
