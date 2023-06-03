@@ -639,6 +639,51 @@ func main() {
 }
 ```
 
+
+- ## ColombiaRegistraduriaLight
+ColombiaMigrationInstitute verify that a user has a valid immigration status in Colombia.
+
+This method takes in the ColombiaRegistraduriaLightRequest{} struct as a parameter.
+
+NOTE:  DateOfIssue fieid should be in this format 2022-01-01.
+### Use this object payload to implement the ColombiaRegistraduriaLight() method
+```go
+type ColombiaRegistraduriaLightRequest struct {
+	DocumentNumber string `json:"documentNumber"`
+	DateOfIssue    string `json:"dateOfIssue"`
+	CallbackUrl    string `json:"callbackUrl"`
+}
+
+```
+```go
+package main
+
+import (
+	"fmt"
+	metamap "github.com/iqquee/metamap"
+)
+
+func main() {
+	clientId := "your metamap client id"
+	clientSecret := "your metamap client secrete"
+	httpClient := hhttp.DefaultClient
+	client := metamap.New(&httpClient, clientId, clientSecret)
+
+	req := metamap.ColombiaRegistraduriaLightRequest{
+		DocumentNumber: "document number",
+		DateOfIssue: "2022-01-01",
+		CallbackUrl: "https://webhook.site/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+	}
+	resp, err := client.ColombiaRegistraduriaLight(req)
+	if err != nil {
+		fmt.Println("This is the error: ", err)
+		return
+	}
+
+	fmt.Println("This is the response: ", resp)
+}
+```
+
 # GovChecks: Nigeria
 - ## NigeriaVirtualNIN
 NigeriaVirtualNIN verifies NIN(National Identification Number).

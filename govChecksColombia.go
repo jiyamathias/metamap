@@ -23,6 +23,7 @@ type (
 		Timestamp string `json:"timestamp"`
 	}
 
+	// ColombiaRegistraduria
 	ColombiaRegistraduriaRequest struct {
 		DocumentNumber string `json:"documentNumber"`
 		CallbackUrl    string `json:"callbackUrl"`
@@ -47,6 +48,26 @@ type (
 			SavingAccountsCount          string `json:"savingAccountsCount"`
 			SolidarityIndustryDebtsCount string `json:"solidarityIndustryDebtsCount"`
 			ServiceIndustryDebtsCount    string `json:"serviceIndustryDebtsCount"`
+		} `json:"data"`
+	}
+
+	// ColombiaRegistraduriaLight
+	ColombiaRegistraduriaLightRequest struct {
+		DocumentNumber string `json:"documentNumber"` // Document number for a National ID
+		DateOfIssue    string `json:"dateOfIssue"`    // Document issue date
+		CallbackUrl    string `json:"callbackUrl"`
+	}
+
+	ColombiaRegistraduriaLightResponse struct {
+		Status int         `json:"status"`
+		Error  interface{} `json:"error"`
+		Id     string      `json:"id"`
+		Data   struct {
+			FullName       string `json:"fullName"`
+			DocumentNumber string `json:"documentNumber"`
+			EmissionDate   string `json:"emissionDate"`
+			PlaceOfIssue   string `json:"placeOfIssue"`
+			Status         string `json:"status"`
 		} `json:"data"`
 	}
 )
@@ -86,6 +107,27 @@ func (c *Client) ColombiaRegistraduria(req ColombiaRegistraduriaRequest) (*Colom
 	c.IsBasic = false
 	if err := c.newRequest(method, url, req, response); err != nil {
 		return &ColombiaRegistraduriaResponse{}, err
+	}
+
+	return &response, nil
+}
+
+/*
+ColombiaRegistraduriaLight verify a user's ID card against the Colombian Civil Registry.
+
+This method takes in the ColombiaRegistraduriaLightRequest{} struct as a parameter.
+
+NOTE:  DateOfIssue fieid should be in this format 2022-01-01.
+
+MetaMap connects with the Colombian Civil Registry (Resgistraduría Nacional del Estado Civil) to validate that the Cédula Number (Rol Único Nacional) and other data present in the ID card corresponds to their database and is valid.
+*/
+func (c *Client) ColombiaRegistraduriaLight(req ColombiaRegistraduriaLightRequest) (*ColombiaRegistraduriaLightResponse, error) {
+	url := "govchecks/v1/co/registraduria-light"
+	method := MethodPOST
+	var response ColombiaRegistraduriaLightResponse
+	c.IsBasic = false
+	if err := c.newRequest(method, url, req, response); err != nil {
+		return &ColombiaRegistraduriaLightResponse{}, err
 	}
 
 	return &response, nil
