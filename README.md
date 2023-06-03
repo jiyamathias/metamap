@@ -61,7 +61,7 @@ import (
 func main() {
 	clientId := "your metamap client id"
 	clientSecret := "your metamap client secrete"
-	httpClient := http.Client{}
+	httpClient := hhttp.DefaultClient
 	client := metamap.New(&httpClient, clientId, clientSecret)
 
 	req := metamap.ArgentinaDNIRequest{
@@ -114,7 +114,7 @@ import (
 func main() {
 	clientId := "your metamap client id"
 	clientSecret := "your metamap client secrete"
-	httpClient := http.Client{}
+	httpClient := hhttp.DefaultClient
 	client := metamap.New(&httpClient, clientId, clientSecret)
 
 	req := metamap.ArgentinaRENAPERRequest{
@@ -168,7 +168,7 @@ import (
 func main() {
 	clientId := "your metamap client id"
 	clientSecret := "your metamap client secrete"
-	httpClient := http.Client{}
+	httpClient := hhttp.DefaultClient
 	client := metamap.New(&httpClient, clientId, clientSecret)
 
 	req := metamap.ArgentinaRENAPERPremiumRequest{
@@ -217,7 +217,7 @@ import (
 func main() {
 	clientId := "your metamap client id"
 	clientSecret := "your metamap client secrete"
-	httpClient := http.Client{}
+	httpClient := hhttp.DefaultClient
 	client := metamap.New(&httpClient, clientId, clientSecret)
 
 	req := metamap.ArgentinaRENAPERExtendedRequest{
@@ -260,7 +260,7 @@ import (
 func main() {
 	clientId := "your metamap client id"
 	clientSecret := "your metamap client secrete"
-	httpClient := http.Client{}
+	httpClient := hhttp.DefaultClient
 	client := metamap.New(&httpClient, clientId, clientSecret)
 
 	req := metamap.BrazilCNPJValidationRequest{
@@ -300,7 +300,7 @@ import (
 func main() {
 	clientId := "your metamap client id"
 	clientSecret := "your metamap client secrete"
-	httpClient := http.Client{}
+	httpClient := hhttp.DefaultClient
 	client := metamap.New(&httpClient, clientId, clientSecret)
 
 	req := metamap.BrazilCNPJExtendedValidationRequest{
@@ -349,7 +349,7 @@ import (
 func main() {
 	clientId := "your metamap client id"
 	clientSecret := "your metamap client secrete"
-	httpClient := http.Client{}
+	httpClient := hhttp.DefaultClient
 	client := metamap.New(&httpClient, clientId, clientSecret)
 
 	req := metamap.BrazilCPFValidationRequest{
@@ -402,7 +402,7 @@ import (
 func main() {
 	clientId := "your metamap client id"
 	clientSecret := "your metamap client secrete"
-	httpClient := http.Client{}
+	httpClient := hhttp.DefaultClient
 	client := metamap.New(&httpClient, clientId, clientSecret)
 
 	req := metamap.BrazilCPFLEGACYRequest{
@@ -446,7 +446,7 @@ import (
 func main() {
 	clientId := "your metamap client id"
 	clientSecret := "your metamap client secrete"
-	httpClient := http.Client{}
+	httpClient := hhttp.DefaultClient
 	client := metamap.New(&httpClient, clientId, clientSecret)
 
 	req := metamap.BrazilCPFLightRequest{
@@ -491,7 +491,7 @@ import (
 func main() {
 	clientId := "your metamap client id"
 	clientSecret := "your metamap client secrete"
-	httpClient := http.Client{}
+	httpClient := hhttp.DefaultClient
 	client := metamap.New(&httpClient, clientId, clientSecret)
 
 	req := metamap.ChileRegistroCivilRequest{
@@ -535,7 +535,7 @@ import (
 func main() {
 	clientId := "your metamap client id"
 	clientSecret := "your metamap client secrete"
-	httpClient := http.Client{}
+	httpClient := hhttp.DefaultClient
 	client := metamap.New(&httpClient, clientId, clientSecret)
 
 	req := metamap.ChileCriminalCertificateRequest{
@@ -581,7 +581,7 @@ import (
 func main() {
 	clientId := "your metamap client id"
 	clientSecret := "your metamap client secrete"
-	httpClient := http.Client{}
+	httpClient := hhttp.DefaultClient
 	client := metamap.New(&httpClient, clientId, clientSecret)
 
 	req := metamap.ColombiaMigrationInstituteRequest{
@@ -590,6 +590,46 @@ func main() {
 		CallbackUrl: "https://webhook.site/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
 	}
 	resp, err := client.ColombiaMigrationInstitute(req)
+	if err != nil {
+		fmt.Println("This is the error: ", err)
+		return
+	}
+
+	fmt.Println("This is the response: ", resp)
+}
+```
+
+- ## ColombiaRegistraduria
+ColombiaRegistraduria verify a user's ID card against the Colombian Civil Registry.
+
+This method takes in the ColombiaRegistraduriaRequest{} struct as a parameter.
+### Use this object payload to implement the ColombiaRegistraduria() method
+```go
+type ColombiaRegistraduriaRequest struct {
+	DocumentNumber string `json:"documentNumber"`
+	CallbackUrl    string `json:"callbackUrl"`
+}
+
+```
+```go
+package main
+
+import (
+	"fmt"
+	metamap "github.com/iqquee/metamap"
+)
+
+func main() {
+	clientId := "your metamap client id"
+	clientSecret := "your metamap client secrete"
+	httpClient := hhttp.DefaultClient
+	client := metamap.New(&httpClient, clientId, clientSecret)
+
+	req := metamap.ColombiaRegistraduriaRequest{
+		DocumentNumber: "document number",
+		CallbackUrl: "https://webhook.site/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+	}
+	resp, err := client.ColombiaRegistraduria(req)
 	if err != nil {
 		fmt.Println("This is the error: ", err)
 		return
@@ -627,7 +667,7 @@ import (
 func main() {
 	clientId := "your metamap client id"
 	clientSecret := "your metamap client secrete"
-	httpClient := http.Client{}
+	httpClient := hhttp.DefaultClient
 	client := metamap.New(&httpClient, clientId, clientSecret)
 
 	extraData := make(map[string]interface{})
@@ -675,7 +715,7 @@ import (
 func main() {
 	clientId := "your metamap client id"
 	clientSecret := "your metamap client secrete"
-	httpClient := http.Client{}
+	httpClient := hhttp.DefaultClient
 	client := metamap.New(&httpClient, clientId, clientSecret)
 
 	req := metamap.NigeriaVotingIDNumberRequest{
@@ -718,7 +758,7 @@ import (
 func main() {
 	clientId := "your metamap client id"
 	clientSecret := "your metamap client secrete"
-	httpClient := http.Client{}
+	httpClient := hhttp.DefaultClient
 	client := metamap.New(&httpClient, clientId, clientSecret)
 
 	req := metamap.NigeriaDriversLicenceRequest{
@@ -759,7 +799,7 @@ import (
 func main() {
 	clientId := "your metamap client id"
 	clientSecret := "your metamap client secrete"
-	httpClient := http.Client{}
+	httpClient := hhttp.DefaultClient
 	client := metamap.New(&httpClient, clientId, clientSecret)
 
 	req := metamap.NigeriaCACRequest{
@@ -797,7 +837,7 @@ import (
 func main() {
 	clientId := "your metamap client id"
 	clientSecret := "your metamap client secrete"
-	httpClient := http.Client{}
+	httpClient := hhttp.DefaultClient
 	client := metamap.New(&httpClient, clientId, clientSecret)
 
 	req := metamap.NigeriaTaxIdentificationNumberRequest{
@@ -835,7 +875,7 @@ import (
 func main() {
 	clientId := "your metamap client id"
 	clientSecret := "your metamap client secrete"
-	httpClient := http.Client{}
+	httpClient := hhttp.DefaultClient
 	client := metamap.New(&httpClient, clientId, clientSecret)
 
 	req := metamap.NigeriaCACAffiliatesRequest{
@@ -875,7 +915,7 @@ import (
 func main() {
 	clientId := "your metamap client id"
 	clientSecret := "your metamap client secrete"
-	httpClient := http.Client{}
+	httpClient := hhttp.DefaultClient
 	client := metamap.New(&httpClient, clientId, clientSecret)
 
 	req := metamap.NigeriaBVNRequest{

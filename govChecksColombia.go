@@ -22,6 +22,33 @@ type (
 		} `json:"data"`
 		Timestamp string `json:"timestamp"`
 	}
+
+	ColombiaRegistraduriaRequest struct {
+		DocumentNumber string `json:"documentNumber"`
+		CallbackUrl    string `json:"callbackUrl"`
+	}
+
+	ColombiaRegistraduriaResponse struct {
+		Error interface{} `json:"error"`
+		Data  struct {
+			AgeRange                     string `json:"ageRange"`
+			BankAccountsCount            string `json:"bankAccountsCount"`
+			CommercialIndustryDebtsCount string `json:"commercialIndustryDebtsCount"`
+			DocumentNumber               string `json:"documentNumber"`
+			EmissionDate                 string `json:"emissionDate"`
+			FinancialIndustryDebtsCount  string `json:"financialIndustryDebtsCount"`
+			FullName                     string `json:"fullName"`
+			Gender                       string `json:"gender"`
+			IssuePlace                   string `json:"issuePlace"`
+			Name                         string `json:"name"`
+			MiddleName                   string `json:"middleName"`
+			Surname                      string `json:"surname"`
+			SecondSurname                string `json:"secondSurname"`
+			SavingAccountsCount          string `json:"savingAccountsCount"`
+			SolidarityIndustryDebtsCount string `json:"solidarityIndustryDebtsCount"`
+			ServiceIndustryDebtsCount    string `json:"serviceIndustryDebtsCount"`
+		} `json:"data"`
+	}
 )
 
 /*
@@ -40,6 +67,25 @@ func (c *Client) ColombiaMigrationInstitute(req ColombiaMigrationInstituteReques
 	c.IsBasic = false
 	if err := c.newRequest(method, url, req, response); err != nil {
 		return &ColombiaMigrationInstituteResponse{}, err
+	}
+
+	return &response, nil
+}
+
+/*
+ColombiaRegistraduria verify a user's ID card against the Colombian Civil Registry.
+
+This method takes in the ColombiaRegistraduriaRequest{} struct as a parameter.
+
+MetaMap connects with the Colombian Civil Registry (Resgistraduría Nacional del Estado Civil) to validate that the Cédula Number (Rol Único Nacional) and other data present in the ID card corresponds to their database. When validated, this API will also return the user's financial information, including loan counts and bank accounts counts.
+*/
+func (c *Client) ColombiaRegistraduria(req ColombiaRegistraduriaRequest) (*ColombiaRegistraduriaResponse, error) {
+	url := "govchecks/v1/co/registraduria"
+	method := MethodPOST
+	var response ColombiaRegistraduriaResponse
+	c.IsBasic = false
+	if err := c.newRequest(method, url, req, response); err != nil {
+		return &ColombiaRegistraduriaResponse{}, err
 	}
 
 	return &response, nil
