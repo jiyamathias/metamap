@@ -70,6 +70,34 @@ type (
 			Status         string `json:"status"`
 		} `json:"data"`
 	}
+
+	// ColombiaUnifiedLegalSearch
+	ColombiaUnifiedLegalSearchRequest struct {
+		FullName    string `json:"fullName"`
+		CallbackUrl string `json:"callbackUrl"`
+	}
+
+	ColombiaUnifiedLegalSearchResponse struct {
+		Status int    `json:"status"`
+		Id     string `json:"id"`
+		Error  struct {
+			Type    string `json:"type"`
+			Code    string `json:"code"`
+			Message string `json:"message"`
+		} `json:"error"`
+		Data struct {
+			Results []struct {
+				IdProceso            interface{} `json:"idProceso"`
+				LlaveProceso         string      `json:"llaveProceso"`
+				FechaProceso         string      `json:"fechaProceso"`
+				FechaUltimaActuacion string      `json:"fechaUltimaActuacion"`
+				Despacho             string      `json:"despacho"`
+				Departamento         string      `json:"departamento"`
+				SujetosProcesales    string      `json:"sujetosProcesales"`
+			} `json:"results"`
+		} `json:"data"`
+		Timestamp string `json:"timestamp"`
+	}
 )
 
 /*
@@ -128,6 +156,25 @@ func (c *Client) ColombiaRegistraduriaLight(req ColombiaRegistraduriaLightReques
 	c.IsBasic = false
 	if err := c.newRequest(method, url, req, response); err != nil {
 		return &ColombiaRegistraduriaLightResponse{}, err
+	}
+
+	return &response, nil
+}
+
+/*
+ColombiaUnifiedLegalSearch check a user's full name against Colombian police records.
+
+This method takes in the ColombiaUnifiedLegalSearchRequest{} struct as a parameter.
+
+MetaMap searches through Colombian police records for a user's past or current warrants or arrests cases.
+*/
+func (c *Client) ColombiaUnifiedLegalSearch(req ColombiaUnifiedLegalSearchRequest) (*ColombiaUnifiedLegalSearchResponse, error) {
+	url := "govchecks/v1/co/unified-criminal-search"
+	method := MethodPOST
+	var response ColombiaUnifiedLegalSearchResponse
+	c.IsBasic = false
+	if err := c.newRequest(method, url, req, response); err != nil {
+		return &ColombiaUnifiedLegalSearchResponse{}, err
 	}
 
 	return &response, nil

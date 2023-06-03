@@ -684,6 +684,46 @@ func main() {
 }
 ```
 
+- ## ColombiaUnifiedLegalSearch
+ColombiaUnifiedLegalSearch check a user's full name against Colombian police records.
+
+This method takes in the ColombiaUnifiedLegalSearchRequest{} struct as a parameter.
+### Use this object payload to implement the ColombiaUnifiedLegalSearch() method
+```go
+type ColombiaUnifiedLegalSearchRequest struct {
+	FullName    string `json:"fullName"`
+	CallbackUrl string `json:"callbackUrl"`
+}
+
+```
+```go
+package main
+
+import (
+	"fmt"
+	metamap "github.com/iqquee/metamap"
+)
+
+func main() {
+	clientId := "your metamap client id"
+	clientSecret := "your metamap client secrete"
+	httpClient := hhttp.DefaultClient
+	client := metamap.New(&httpClient, clientId, clientSecret)
+
+	req := metamap.ColombiaUnifiedLegalSearchRequest{
+		FullName: "JOHN DOE",
+		CallbackUrl: "https://webhook.site/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+	}
+	resp, err := client.ColombiaUnifiedLegalSearch(req)
+	if err != nil {
+		fmt.Println("This is the error: ", err)
+		return
+	}
+
+	fmt.Println("This is the response: ", resp)
+}
+```
+
 # GovChecks: Nigeria
 - ## NigeriaVirtualNIN
 NigeriaVirtualNIN verifies NIN(National Identification Number).
