@@ -287,10 +287,10 @@ NigeriaBVN verifies a BVN (Bank Verification Number).
 
 This method takes in the NigeriaBVNRequest{} struct as a parameter.
 */
-func (c *Client) NigeriaBVN(req NigeriaBVNRequest) (*interface{}, error) {
+func (c *Client) NigeriaBVN(req NigeriaBVNRequest) (*map[string]interface{}, error) {
 	url := "govchecks/v1/ng/bvn"
 	method := MethodPOST
-	var response interface{}
+	var response map[string]interface{}
 	c.IsBasic = false
 	if err := c.newRequest(method, url, req, response); err != nil {
 		return nil, err

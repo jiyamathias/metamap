@@ -1,11 +1,14 @@
-# metamap
+# Metamap
 A Golang SDK for interacting with the metamap API
 
-# Please ensure to create issues in this repo if :
+## Please ensure to create issues in this repo if :
 - You encounter any error while using this package and that issue would be attended to immediately.
 
+## Contributions
+- Feel free to contribute to this library by creating PR's ;)
+
 # Get Started
-- In other to use this package, you need to first create an account with MEtaMap via https://metamap.com to get your `Client_Id` and `Client_Secret`
+- In other to use this package, you need to first create an account with `MetaMap` via https://metamap.com to get your `Client_Id` and `Client_Secret`
 
 # Installation
 To install this package, you need to install [Go](https://golang.org/) and set your Go workspace first.
