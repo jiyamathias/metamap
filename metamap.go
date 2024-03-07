@@ -18,24 +18,26 @@ const (
 	MethodGET  = "GET"
 )
 
-// Client is the struct holding all of the variables to be used
-type Client struct {
-	Http              *http.Client
-	AccessToken       string
-	AuthToken         string
-	ClientId          string
-	ClientSecret      string
-	BaseUrl           string
-	IsMultipartHeader bool
-	/*
-		IsBasic is used to determine what kind of request is being being made so that the request header  can be set accordingly.
+type (
+	// Client is the struct holding all of the variables to be used
+	Client struct {
+		Http              *http.Client
+		AccessToken       string
+		AuthToken         string
+		ClientId          string
+		ClientSecret      string
+		BaseUrl           string
+		IsMultipartHeader bool
+		/*
+			IsBasic is used to determine what kind of request is being being made so that the request header  can be set accordingly.
 
-		This value should be set to true only for if the request header authorization is Basic and for Bearer it should be set to false
-	*/
-	IsBasic bool
+			This value should be set to true only for if the request header authorization is Basic and for Bearer it should be set to false
+		*/
+		IsBasic bool
 
-	TokenValidity time.Time // metamap JWT token is only valid for 1hr and afterwards a new JWT token needs to be created intothet to access the resource
-}
+		TokenValidity time.Time // metamap JWT token is only valid for 1hr and afterwards a new JWT token needs to be created intothet to access the resource
+	}
+)
 
 // Endocode takes in a string and encoded it into a base64 string
 func Encode(text string) string {

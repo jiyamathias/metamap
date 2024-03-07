@@ -174,7 +174,7 @@ MetaMap takes a user's virtual NIN - one-time verification code from the officia
 You can reach out to the official NIMC article(https://nimc.gov.ng/nin-tokenization/) to learn more about the tokenization initiative.
 */
 func (c *Client) NigeriaVirtualNIN(req NigeriaNINRequest) (*NigeriaNINResponse, error) {
-	url := "govchecks/v1/ng/vnin"
+	url := "govchecks/v1/ng/nin"
 	method := MethodPOST
 	var response NigeriaNINResponse
 	c.IsBasic = false
