@@ -848,12 +848,13 @@ func main() {
 	extraData["user_id"] = "08992e987"
 	extraData["some extra data"] = "some extra data"
 	req := metamap.NigeriaNINRequest{
-		VNIN:        "your national identity number",
-		FirstName:   "John",
-		LastName:    "Doe",
-		DateOfBirth: "2023-05-01",
-		Metadata:    extraData,
-		CallbackUrl: "https://webhook.site/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+		DocumentNumber: "your national identity number",
+		FirstName:   	"John",
+		LastName:    	"Doe",
+		DateOfBirth: 	"2023-05-01",
+		Metadata:    	extraData,
+		Phone: 		 	"string"
+		CallbackUrl: 	"https://webhook.site/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
 	}
 	resp, err := client.NigeriaVirtualNIN(req)
 	if err != nil {

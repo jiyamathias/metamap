@@ -5,12 +5,13 @@ type (
 	//National ID
 	NigeriaNINRequest struct {
 		//VNIN is a required parameter that must be passed in
-		VNIN        string `json:"vNIN"`
-		FirstName   string `json:"firstName"`
-		LastName    string `json:"lastName"`
-		DateOfBirth string `json:"dateOfBirth"`
+		DocumentNumber string `json:"documentNumber"`
+		FirstName      string `json:"firstName"`
+		LastName       string `json:"lastName"`
+		DateOfBirth    string `json:"dateOfBirth"`
 		//Metadata is an optional parameter
 		Metadata map[string]interface{} `json:"metadata"`
+		Phone    string                 `json:"phone"`
 		//CallbackUrl is a required parameter that must be passed in
 		CallbackUrl string `json:"callbackUrl"`
 	}
