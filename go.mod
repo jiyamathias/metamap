@@ -1,4 +1,4 @@
-module github.com/iqquee/metamap
+module github.com/jiyamathias/metamap
 
 go 1.20
 

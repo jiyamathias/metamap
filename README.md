@@ -14,11 +14,11 @@ A Golang SDK for interacting with the metamap API
 To install this package, you need to install [Go](https://golang.org/) and set your Go workspace first.
 1. You can use the below Go command to install metamap
 ```sh
-$ go get -u github.com/iqquee/metamap
+$ go get -u github.com/jiyamathias/metamap
 ```
 2. Import it in your code:
 ```sh
-import "github.com/iqquee/metamap"
+import "github.com/jiyamathias/metamap"
 ```
 ## Note : All methods in this package returns two (2) things:
 - [x] An object of the response
@@ -58,7 +58,7 @@ package main
 
 import (
 	"fmt"
-	metamap "github.com/iqquee/metamap"
+	metamap "github.com/jiyamathias/metamap"
 )
 
 func main() {
@@ -111,7 +111,7 @@ package main
 
 import (
 	"fmt"
-	metamap "github.com/iqquee/metamap"
+	metamap "github.com/jiyamathias/metamap"
 )
 
 func main() {
@@ -165,7 +165,7 @@ package main
 
 import (
 	"fmt"
-	metamap "github.com/iqquee/metamap"
+	metamap "github.com/jiyamathias/metamap"
 )
 
 func main() {
@@ -214,7 +214,7 @@ package main
 
 import (
 	"fmt"
-	metamap "github.com/iqquee/metamap"
+	metamap "github.com/jiyamathias/metamap"
 )
 
 func main() {
@@ -257,7 +257,7 @@ package main
 
 import (
 	"fmt"
-	metamap "github.com/iqquee/metamap"
+	metamap "github.com/jiyamathias/metamap"
 )
 
 func main() {
@@ -297,7 +297,7 @@ package main
 
 import (
 	"fmt"
-	metamap "github.com/iqquee/metamap"
+	metamap "github.com/jiyamathias/metamap"
 )
 
 func main() {
@@ -346,7 +346,7 @@ package main
 
 import (
 	"fmt"
-	metamap "github.com/iqquee/metamap"
+	metamap "github.com/jiyamathias/metamap"
 )
 
 func main() {
@@ -399,7 +399,7 @@ package main
 
 import (
 	"fmt"
-	metamap "github.com/iqquee/metamap"
+	metamap "github.com/jiyamathias/metamap"
 )
 
 func main() {
@@ -443,7 +443,7 @@ package main
 
 import (
 	"fmt"
-	metamap "github.com/iqquee/metamap"
+	metamap "github.com/jiyamathias/metamap"
 )
 
 func main() {
@@ -488,7 +488,7 @@ package main
 
 import (
 	"fmt"
-	metamap "github.com/iqquee/metamap"
+	metamap "github.com/jiyamathias/metamap"
 )
 
 func main() {
@@ -532,7 +532,7 @@ package main
 
 import (
 	"fmt"
-	metamap "github.com/iqquee/metamap"
+	metamap "github.com/jiyamathias/metamap"
 )
 
 func main() {
@@ -578,7 +578,7 @@ package main
 
 import (
 	"fmt"
-	metamap "github.com/iqquee/metamap"
+	metamap "github.com/jiyamathias/metamap"
 )
 
 func main() {
@@ -619,7 +619,7 @@ package main
 
 import (
 	"fmt"
-	metamap "github.com/iqquee/metamap"
+	metamap "github.com/jiyamathias/metamap"
 )
 
 func main() {
@@ -663,7 +663,7 @@ package main
 
 import (
 	"fmt"
-	metamap "github.com/iqquee/metamap"
+	metamap "github.com/jiyamathias/metamap"
 )
 
 func main() {
@@ -704,7 +704,7 @@ package main
 
 import (
 	"fmt"
-	metamap "github.com/iqquee/metamap"
+	metamap "github.com/jiyamathias/metamap"
 )
 
 func main() {
@@ -744,7 +744,7 @@ package main
 
 import (
 	"fmt"
-	metamap "github.com/iqquee/metamap"
+	metamap "github.com/jiyamathias/metamap"
 )
 
 func main() {
@@ -788,7 +788,7 @@ package main
 
 import (
 	"fmt"
-	metamap "github.com/iqquee/metamap"
+	metamap "github.com/jiyamathias/metamap"
 )
 
 func main() {
@@ -835,7 +835,7 @@ package main
 
 import (
 	"fmt"
-	metamap "github.com/iqquee/metamap"
+	metamap "github.com/jiyamathias/metamap"
 )
 
 func main() {
@@ -884,7 +884,7 @@ package main
 
 import (
 	"fmt"
-	metamap "github.com/iqquee/metamap"
+	metamap "github.com/jiyamathias/metamap"
 )
 
 func main() {
@@ -927,7 +927,7 @@ package main
 
 import (
 	"fmt"
-	metamap "github.com/iqquee/metamap"
+	metamap "github.com/jiyamathias/metamap"
 )
 
 func main() {
@@ -968,7 +968,7 @@ package main
 
 import (
 	"fmt"
-	metamap "github.com/iqquee/metamap"
+	metamap "github.com/jiyamathias/metamap"
 )
 
 func main() {
@@ -1006,7 +1006,7 @@ package main
 
 import (
 	"fmt"
-	metamap "github.com/iqquee/metamap"
+	metamap "github.com/jiyamathias/metamap"
 )
 
 func main() {
@@ -1044,7 +1044,7 @@ package main
 
 import (
 	"fmt"
-	metamap "github.com/iqquee/metamap"
+	metamap "github.com/jiyamathias/metamap"
 )
 
 func main() {
@@ -1084,7 +1084,7 @@ package main
 
 import (
 	"fmt"
-	metamap "github.com/iqquee/metamap"
+	metamap "github.com/jiyamathias/metamap"
 )
 
 func main() {
